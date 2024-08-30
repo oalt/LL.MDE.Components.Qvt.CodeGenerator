@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator
+namespace LL.MDE.Components.Qvt.CodeGenerator
 {
     public class CodeGeneratorException : Exception
     {

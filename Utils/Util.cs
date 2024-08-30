@@ -1,4 +1,4 @@
-﻿namespace LL.MDE.Components.Qvt.QvtCodeGenerator.Utils
+﻿namespace LL.MDE.Components.Qvt.CodeGenerator.Utils
 {
     public static class Util
     {

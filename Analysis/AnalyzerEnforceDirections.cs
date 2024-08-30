@@ -5,7 +5,7 @@ using LL.MDE.Components.Qvt.Metamodel.EssentialOCL;
 using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis
+namespace LL.MDE.Components.Qvt.CodeGenerator.Analysis
 {
 	
 

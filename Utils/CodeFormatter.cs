@@ -7,7 +7,7 @@ using NArrange.Core.CodeElements;
 using NArrange.Core.Configuration;
 using NArrange.CSharp;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.Utils
+namespace LL.MDE.Components.Qvt.CodeGenerator.Utils
 {
     public static class CodeFormatter
     {

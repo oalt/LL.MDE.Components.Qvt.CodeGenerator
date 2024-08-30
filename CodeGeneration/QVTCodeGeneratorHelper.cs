@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.RelationTemplate;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.Utils;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.Utils;
 
-using TransformationMainTemplate = LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.TransformationTemplate.TransformationMainTemplate;
+using TransformationMainTemplate = LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTemplate.TransformationMainTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.FunctionsInterfaceTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration;
 
 namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
 {
@@ -119,7 +120,7 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
 
         public static string GenerateCodeFunctions(IRelationalTransformation transformation)
         {
-            FunctionsInterfaceTemplate.FunctionsInterfaceTemplate template = new FunctionsInterfaceTemplate.FunctionsInterfaceTemplate(transformation);
+            FunctionsInterfaceTemplate template = new FunctionsInterfaceTemplate(transformation);
             string code = template.TransformText();
             return code;
         }

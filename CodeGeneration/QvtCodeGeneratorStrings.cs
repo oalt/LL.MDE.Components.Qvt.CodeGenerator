@@ -2,9 +2,9 @@
 
 using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.Utils;
+using LL.MDE.Components.Qvt.CodeGenerator.Utils;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
+namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration
 {
     public static class QvtCodeGeneratorStrings
     {

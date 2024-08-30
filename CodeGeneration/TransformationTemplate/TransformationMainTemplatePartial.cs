@@ -2,11 +2,11 @@
 
 using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis;
+using LL.MDE.Components.Qvt.CodeGenerator.Analysis;
 
 using NMF.Expressions.Linq;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.TransformationTemplate
+namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTemplate
 {
     public partial class TransformationMainTemplate
     {

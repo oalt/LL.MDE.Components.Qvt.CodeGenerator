@@ -3,9 +3,9 @@ using System.Linq;
 
 using LL.MDE.Components.Qvt.Metamodel.EssentialOCL;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.Utils;
+using LL.MDE.Components.Qvt.CodeGenerator.Utils;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis
+namespace LL.MDE.Components.Qvt.CodeGenerator.Analysis
 {
     public class Validator
     {

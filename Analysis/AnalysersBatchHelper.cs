@@ -6,7 +6,7 @@ using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
 
 using NMF.Utilities;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis
+namespace LL.MDE.Components.Qvt.CodeGenerator.Analysis
 {
 	public class RelationAnalysisResult
 	{

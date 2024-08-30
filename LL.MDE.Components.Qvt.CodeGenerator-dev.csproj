@@ -7,7 +7,77 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <Compile Remove="TransformationTemplate.cs" />
+      <Compile Remove="TransformationTemplatePartial.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="packages.config" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Mono.TextTemplating" Version="2.3.1" />
+      <PackageReference Include="NArrange" Version="0.3.5" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LL.MDE.Components.Qvt.Common\LL.MDE.Components.Qvt.Common-dev.csproj" />
       <ProjectReference Include="..\LL.MDE.Components.Qvt.Metamodel\LL.MDE.Components.Qvt.Metamodel-dev.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="CodeGeneration\FunctionsInterfaceTemplate\FunctionsInterfaceTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>FunctionsInterfaceTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\RelationTemplate\RelationHelperTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>RelationHelperTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\RelationTemplate\RelationMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>RelationMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\TransformationTemplate\TransformationHelperTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TransformationHelperTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TransformationMainTemplate.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="CodeGeneration\FunctionsInterfaceTemplate\FunctionsInterfaceTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>FunctionsInterfaceTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\RelationTemplate\RelationHelperTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RelationHelperTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\RelationTemplate\RelationMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RelationMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\TransformationTemplate\TransformationHelperTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TransformationHelperTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\TransformationTemplate\TransformationMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TransformationMainTemplate.tt</DependentUpon>
+      </Compile>
     </ItemGroup>
 
 </Project>

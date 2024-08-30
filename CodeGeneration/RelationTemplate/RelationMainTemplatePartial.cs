@@ -1,7 +1,7 @@
 ﻿using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis;
+using LL.MDE.Components.Qvt.CodeGenerator.Analysis;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.RelationTemplate
+namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
 { 
 	public partial class RelationMainTemplate
 	{

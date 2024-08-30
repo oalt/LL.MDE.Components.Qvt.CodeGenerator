@@ -2,10 +2,10 @@
 <#@ import namespace="LL.MDE.Components.Qvt.Common" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTTemplate" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.RelationTemplate" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.Utils" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.Analysis" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.Utils" #>
 <#@ import namespace="NMF.Utilities" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -14,7 +14,7 @@
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #> 
 
 <#@ output extension=".cs" #>
-
+ 
 <#+
 
 

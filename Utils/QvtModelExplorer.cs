@@ -6,7 +6,7 @@ using LL.MDE.Components.Qvt.Metamodel.EssentialOCL;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
 using LL.MDE.Components.Qvt.Metamodel.QVTTemplate;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.Utils
+namespace LL.MDE.Components.Qvt.CodeGenerator.Utils
 {
 	public class QvtModelExplorer
 	{

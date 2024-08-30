@@ -11,12 +11,12 @@ using LL.MDE.Components.Qvt.Metamodel.EMOF;
 using LL.MDE.Components.Qvt.Metamodel.EssentialOCL;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
 using LL.MDE.Components.Qvt.Metamodel.QVTTemplate;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis;
-using LL.MDE.Components.Qvt.QvtCodeGenerator.Utils;
+using LL.MDE.Components.Qvt.CodeGenerator.Analysis;
+using LL.MDE.Components.Qvt.CodeGenerator.Utils;
 
 using NMF.Utilities;
 
-namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.RelationTemplate
+namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
 {
     public class RelationTemplateHelper
 

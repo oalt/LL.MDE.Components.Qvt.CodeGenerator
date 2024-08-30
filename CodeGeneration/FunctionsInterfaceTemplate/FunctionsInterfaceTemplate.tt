@@ -1,9 +1,9 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Common" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.Analysis" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.RelationTemplate" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.Analysis" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EMOF" #>
@@ -14,7 +14,7 @@
 
 <#@ output extension=".cs" #>
 
-
+ 
 <#
 
     // Small hack to bypass limitation of ForTea plugin ( https://github.com/MrJul/ForTea/issues/3 )

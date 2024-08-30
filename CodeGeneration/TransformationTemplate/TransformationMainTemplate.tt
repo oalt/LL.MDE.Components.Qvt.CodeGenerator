@@ -7,8 +7,8 @@
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EssentialOCL" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration" #>
-<#@ import namespace="LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration.RelationTemplate" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate" #>
 <#@ import namespace="NMF.Utilities" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -29,7 +29,8 @@ using LL.MDE.Components.Qvt.Common;
     bool useMetamodelInterface = this.useMetamodelInterface;
     #>
 
-<# // Generating of the "usings", for each package of each metamodel used in the transformation
+<# 
+    // Generating of the "usings", for each package of each metamodel used in the transformation
     foreach (IPackage package in transformation.ModelParameter.Select(p => p.UsedPackage).SelectMany(i => i).Distinct())
     { #>
 
