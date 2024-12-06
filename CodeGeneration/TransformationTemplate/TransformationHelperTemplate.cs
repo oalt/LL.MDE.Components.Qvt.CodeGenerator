@@ -31,12 +31,10 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n");
-            this.Write("\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 12 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationHelperTemplate.tt"
+        #line 8 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationHelperTemplate.tt"
 
 
 	public void GenerateAttributesAndConstructor(IRelationalTransformation transformation)

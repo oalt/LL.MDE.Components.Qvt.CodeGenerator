@@ -12,30 +12,44 @@
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EssentialOCL" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #> 
-
 <#@ output extension=".cs" #>
- 
 <#+
-
-
     public void GenerateDictionnaryClass(IRelation relation, IList<IRelationDomain> domains, bool checkOnly)
     {
         string dictTypes = string.Join(",", domains.Select(d => d.RootVariable.Type.Name));
 
         string className = checkOnly ? "CheckOnlyDomains" : "EnforceDomains";
-        #>public class <#=className #> : Tuple<<#=dictTypes #>>
-		{<#+ 
+#>
 
-	foreach (IRelationDomain dictVariable in domains)
-	{
-	    #>public <#= dictVariable.RootVariable.Type.Name #> <#= dictVariable.RootVariable.Name #>  { get { return Item<#=  domains.IndexOf(dictVariable) + 1 #>; } } <#+
-	}
+        // dictionary class
+        public class <#=className #> : Tuple<<#=dictTypes #>>
+        {
+<#+ 
+
+		foreach (IRelationDomain dictVariable in domains)
+		{
+#>
+            public <#= dictVariable.RootVariable.Type.Name #> <#= dictVariable.RootVariable.Name #>  
+            {
+                get
+                {
+                    return Item<#=  domains.IndexOf(dictVariable) + 1 #>;
+                }
+            }
+
+<#+
+		}
         RelationTemplateHelper.GenerateRelationParams(true, relation, null, true, false);
         string paramsWithType = string.Join(",",domains.Select(d => d.RootVariable.Type.Name + " " + d.RootVariable.Name));
         string paramsWithoutType = string.Join(",",domains.Select(d => d.RootVariable.Name));
-        #>public <#=className #>(<#=paramsWithType #>) : base(<#=paramsWithoutType #>){}
-	}<#+
-    }
+		// generate constructor
+#>
+            public <#=className #>(<#=paramsWithType #>) : base(<#=paramsWithoutType #>)
+            {
+            }
+        }
+<#+
+    } // end method
 
 
     public void GenerateDictionnaryClasses(IRelation relation)
@@ -48,12 +62,15 @@
 
     public void GenerateFindPreviousResultMethod(IRelation relation)
     {
-        #>public EnforceDomains FindPreviousResult(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(true,relation) #>)
-		{
-		CheckOnlyDomains input = new CheckOnlyDomains(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(false,relation) #>);
-		return traceabilityMap.ContainsKey(input) ? traceabilityMap[input] : null;
-	}<#+
-    }
+#>
+        public EnforceDomains FindPreviousResult(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(true,relation) #>)
+        {
+            CheckOnlyDomains input = new CheckOnlyDomains(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(false,relation) #>);
+            return traceabilityMap.ContainsKey(input) ? traceabilityMap[input] : null;
+        }
+
+<#+
+    } // end method
 
     public void GenerateMatchClasses(IRelation relation, RelationAnalysisResult analysisResult)
     {
@@ -62,38 +79,57 @@
             DomainVariablesBindingsResult domainAnalysisResult = analysisResult.GetResultOf(domain);
 
             // Domain match Class declaration
-            #>internal class <#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #> {<#+
-		
-        foreach (IVariable variableItCanBind in  domainAnalysisResult.VariablesItCanBind)
+#>
+        // match class
+        internal class <#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #> 
         {
-            #>public <#=variableItCanBind.Type.GetRealTypeName() #> <#= variableItCanBind.Name #>;
-			<#+
-        } 
 
-		#>}<#+
+<#+		
+			foreach (IVariable variableItCanBind in domainAnalysisResult.VariablesItCanBind)
+			{
+#>
+            public <#=variableItCanBind.Type.GetRealTypeName() #> <#= variableItCanBind.Name #>;
+<#+
+			} // foreach
+#>
         }
 
+<#+
+			}
+
         // Check result Class declaration
-        #>internal class <#=QvtCodeGeneratorStrings.CheckResultClassName(relation) #>  {<#+
+#>
+        internal class <#=QvtCodeGeneratorStrings.CheckResultClassName(relation) #>  
+        {
+<#+
 
-	foreach (IRelationDomain domain in relation.Domain.OfType<IRelationDomain>().Where(d => !d.IsEnforceable.GetValueOrDefault() && (d.TypedModel != null)))
-	{
-	    #>public <#=QvtCodeGeneratorStrings.MatchDomainClassName(domain) #> matchDomain<#=Util.ToFirstUpper(domain.RootVariable.Name) #>;
-		<#+
-	} 
+		foreach (IRelationDomain domain in relation.Domain.OfType<IRelationDomain>().Where(d => !d.IsEnforceable.GetValueOrDefault() && (d.TypedModel != null)))
+		{
+#>
+            public <#=QvtCodeGeneratorStrings.MatchDomainClassName(domain) #> matchDomain<#=Util.ToFirstUpper(domain.RootVariable.Name) #>;
+<#+
+		} // foreach
 
-	#>}<#+
-    }
+#>
+        }
+<#+
+    } // end method
 
 	public void GenerateDomainCheckMethod(IRelationDomain domain, DomainVariablesBindingsResult analysisResult)
 	{
 	    ISet<IVariable> bindedSoFar = new HashSet<IVariable>();
-	    #>internal static ISet<<#=QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>> <#= QvtCodeGeneratorStrings.CheckDomainMethodName(domain) #> (<#=domain.RootVariable.Type.GetRealTypeName() #> <#= domain.RootVariable.Name #>) {
-			ISet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>> result = new HashSet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>>();
+#>
+        // DomainCheckMethod
+        internal static ISet<<#=QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>> <#= QvtCodeGeneratorStrings.CheckDomainMethodName(domain) #> (<#=domain.RootVariable.Type.GetRealTypeName() #> <#= domain.RootVariable.Name #>)
+        {
+            ISet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>> result = new HashSet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>>();
+
 			<#= RelationTemplateHelper.GenerateDomainCheckMethodContent(domain, bindedSoFar, analysisResult) #>
-			return result;
-		}<#+
-	}
+
+            return result;
+        }
+<#+
+	} // end method
 
 	public void GenerateEnforceDomainMethods(IRelation relation, ITypedModel targetParam, RelationAnalysisResult analysisResult, bool useMetamodelInterface)
 	{
@@ -154,12 +190,14 @@
     public void GenerateCheckAndEnforceMethod(IRelation relation)
     {
         // Method signature
-        #><#= relation.IsTopLevel.GetValueOrDefault(false) ? "public" : "internal" #> void CheckAndEnforce(<#= string.Join(",", relation.Domain.Cast<RelationDomain>().Select(d => d.RootVariable.Type.GetRealTypeName() + " " + d.RootVariable.Name)) #> ) { <#+
+#>
+        <#= relation.IsTopLevel.GetValueOrDefault(false) ? "public" : "internal" #> void CheckAndEnforce(<#= string.Join(",", relation.Domain.Cast<RelationDomain>().Select(d => d.RootVariable.Type.GetRealTypeName() + " " + d.RootVariable.Name)) #> )
+        { <#+
 
 		IList<string> dictVariablesEnforce = relation.Domain.OfType<IRelationDomain>().Where(d => d.IsEnforceable.GetValueOrDefault()).Select(d=>d.RootVariable.Name).ToList();
 		string enforceParams = string.Join(",",dictVariablesEnforce);
 		#> 
-		    CheckOnlyDomains input = new CheckOnlyDomains(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(false,relation) #>);
+            CheckOnlyDomains input = new CheckOnlyDomains(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(false,relation) #>);
             EnforceDomains output = new EnforceDomains(<#= enforceParams #>);
 		    if (traceabilityMap.ContainsKey(input) && !traceabilityMap[input].Equals(output))
 		    {
@@ -182,18 +220,22 @@
         ISet<IVariable> bindedSoFar = new HashSet<IVariable>();
       
         // Method declaration
-        #>internal void Enforce (ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> result, <#= RelationTemplateHelper.GenerateRelationParamsEnforce(true, relation, bindedSoFar) #> ) {
+#>
 
-		foreach (<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #> match in result)
-		{
-			// Extracting variables binded in source domains
-			<#+
+        internal void Enforce(ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> result, <#= RelationTemplateHelper.GenerateRelationParamsEnforce(true, relation, bindedSoFar) #>)
+        {
+
+            foreach (<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #> match in result)
+            {
+                 // Extracting variables binded in source domains
+<#+
         // Generating the extraction of variables from the checking result
         foreach (IRelationDomain sourceDomain in sourceDomains)
         {
             string bindingsContainer = "match." + QvtCodeGeneratorStrings.MatchDomainFieldName(sourceDomain);
-            #><#=RelationTemplateHelper.GenerateExtractVariablesFromMatch(analysisResult.GetResultOf(sourceDomain), bindedSoFar, bindingsContainer) #>
-			<#+
+#>
+			<#=RelationTemplateHelper.GenerateExtractVariablesFromMatch(analysisResult.GetResultOf(sourceDomain), bindedSoFar, bindingsContainer) #>
+<#+
         }
 
 
@@ -201,21 +243,22 @@
         // Generating assignments from where clause
         if (relation.Where != null)
         {
-            #> 
+#> 
 
-		// Assigning variables binded in the where clause
-		<#+
+               // Assigning variables binded in the where clause
+<#+
             foreach (Assignment assignment in relation.Where.Predicate.Select(p => p.ConditionExpression).OfType<Assignment>())
             {
-                #><#= RelationTemplateHelper.GenerateExpression(assignment, useMetamodelInterface) + ";" #>
-				<#+
+#>
+             <#= RelationTemplateHelper.GenerateExpression(assignment, useMetamodelInterface) + ";" #>
+<#+
             }
         }
         // Generating call to enforce methods of target domains
-        #> 
+#> 
 
-		// Enforcing each enforced domain
-		<#+
+                // Enforcing each enforced domain
+<#+
         foreach (IRelationDomain targetDomain in targetDomains)
         {
 			
@@ -225,58 +268,71 @@
 			args.AddRange(targetDomainAnalysisResult.VariablesRequired().Select(v=>v.Name));
 	        args.Add(targetDomain.RootVariable.Name);
 
-            #><#= QvtCodeGeneratorStrings.MatchDomainClassName(targetDomain) #> target<#=QvtCodeGeneratorStrings.MatchDomainClassName(targetDomain) #> = <#= QvtCodeGeneratorStrings.EnforceDomainMethodName(targetDomain) #>(match, <#= string.Join(",",args) #>);
-			<#+
+#>
+            <#= QvtCodeGeneratorStrings.MatchDomainClassName(targetDomain) #> target<#=QvtCodeGeneratorStrings.MatchDomainClassName(targetDomain) #> = <#= QvtCodeGeneratorStrings.EnforceDomainMethodName(targetDomain) #>(match, <#= string.Join(",",args) #>);
+<#+
         }
 
         // Generating variables extraction from the resulting target domains
-        #> 
+#> 
 
-		// Retrieving variables binded in the enforced domains
-		<#+
+                // Retrieving variables binded in the enforced domains
+<#+
         foreach (IRelationDomain targetDomain in targetDomains)
         {
             string bindingsContainer = "target" + QvtCodeGeneratorStrings.MatchDomainClassName(targetDomain);
-            #><#=RelationTemplateHelper.GenerateExtractVariablesFromMatch(analysisResult.GetResultOf(targetDomain), bindedSoFar, bindingsContainer) #>
-			<#+
+#>
+         <#=RelationTemplateHelper.GenerateExtractVariablesFromMatch(analysisResult.GetResultOf(targetDomain), bindedSoFar, bindingsContainer) #>
+<#+
         }
 
         // Generating relation calls from where clause
         if (relation.Where != null)
         {
-            #> 
+#> 
 		// Calling other relations as defined in the where clause
-		<#+
+<#+
             foreach (IRelationCallExp relationCall in relation.Where.Predicate.Select(p => p.ConditionExpression).OfType<IRelationCallExp>())
             {
-                #><#=RelationTemplateHelper.GenerateExpression(relationCall, useMetamodelInterface) + ";" #>
-				<#+
+#>
+         <#=RelationTemplateHelper.GenerateExpression(relationCall, useMetamodelInterface) + ";" #>
+<#+
+            } // foreach
+        } // if
+#>
             }
         }
-		#>}}}<#+
-    }
+<#+
+    } // end method
+
 	public void GenerateCheckMethod(IRelation relation, RelationAnalysisResult analysisResult)
 	{
 	    ISet<IVariable> bindedSoFar = new HashSet<IVariable>();
 
 	    // Check method declaration
-	    #>internal static ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> <#= QvtCodeGeneratorStrings.CheckMethodName() #>( <#= RelationTemplateHelper.GenerateRelationParamsCheckonly(true, relation, bindedSoFar) #> ) {
+#>
 
-			ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> result = new HashSet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>>();<#+
 
+        internal static ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> <#= QvtCodeGeneratorStrings.CheckMethodName() #>( <#= RelationTemplateHelper.GenerateRelationParamsCheckonly(true, relation, bindedSoFar) #> )
+        {
+
+            ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> result = new HashSet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>>();
+<#+
 	    // Generating the calls to each check domain method
 	    foreach (RelationDomain checkonlyDomain in relation.Domain.OfType<RelationDomain>().Where(d => !d.IsEnforceable.GetValueOrDefault() && (d.TypedModel != null)))
 	    {
-	        #>ISet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(checkonlyDomain) #>> <#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #>s = <#= QvtCodeGeneratorStrings.CheckDomainMethodName(checkonlyDomain) #>(<#= checkonlyDomain.RootVariable.Name #>);
-			<#+
+#>
+            ISet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(checkonlyDomain) #>> <#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #>s = <#= QvtCodeGeneratorStrings.CheckDomainMethodName(checkonlyDomain) #>(<#= checkonlyDomain.RootVariable.Name #>);
+<#+
 	    }
 	    List<IRelationDomain> checkonlyDomains = relation.Domain.OfType<IRelationDomain>().Where(d => !d.IsEnforceable.GetValueOrDefault() && (d.TypedModel != null)).ToList();
 
 	    // Generating beginining of one foreach loop per set of of matches of each domain
 	    foreach (IRelationDomain checkonlyDomain in checkonlyDomains)
 	    {
-	        #>foreach (<#=QvtCodeGeneratorStrings.MatchDomainClassName(checkonlyDomain) #> <#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #> in <#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #>s ) {
-			<#+
+#>
+            foreach (<#=QvtCodeGeneratorStrings.MatchDomainClassName(checkonlyDomain) #> <#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #> in <#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #>s ) {
+<#+
 	    }
 
 	    // We have to keep track of the number of conditionnals (ie "if(){" )we start from now on
@@ -288,13 +344,15 @@
 	    {
 	        int startIndex = orderedCheckonlyDomains.IndexOf(checkonlyDomain1) + 1;
 	        int nbRemaining = orderedCheckonlyDomains.Count - startIndex;
+
 	        foreach (IRelationDomain checkonlyDomain2 in orderedCheckonlyDomains.GetRange(startIndex, nbRemaining))
 	        {
 	            ISet<IVariable> commonBindedVariables =
 	                new HashSet<IVariable>(analysisResult.GetResultOf(checkonlyDomain1).VariablesItCanBind);
 	            ISet<IVariable> binded2 =
 	                new HashSet<IVariable>(analysisResult.GetResultOf(checkonlyDomain2).VariablesItCanBind);
-	            commonBindedVariables.IntersectWith(binded2);
+	            
+				commonBindedVariables.IntersectWith(binded2);
 
 	            List<string> conditions = new List<string>();
 	            foreach (IVariable commonBindedVariable in commonBindedVariables)
@@ -303,7 +361,10 @@
 	            }
 	            if (conditions.Any())
 	            {
-	                #>if (<#=string.Join(" && ", conditions) #>) {<#+
+#>
+                    if (<#=string.Join(" && ", conditions) #>)
+					{
+<#+
 	                nbConditionals++;
 	            }
 	        }
@@ -312,8 +373,9 @@
 	    // At this point all the variables have been compared and are hence valid. We can generate code to extract them from the domains.
 	    foreach (IRelationDomain checkonlyDomain in checkonlyDomains)
 	    {
-	        #><#=RelationTemplateHelper.GenerateExtractVariablesFromMatch(analysisResult.GetResultOf(checkonlyDomain), bindedSoFar, QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain)) #>
-			<#+
+#>
+            <#=RelationTemplateHelper.GenerateExtractVariablesFromMatch(analysisResult.GetResultOf(checkonlyDomain), bindedSoFar, QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain)) #>
+<#+
 	    }
 
 	    // Finally we can generate tests for csharp constraints that require such variables
@@ -331,43 +393,46 @@
 	        }
 	        if (conditions.Any())
 	        {
-	            #>if(<#=string.Join(" && ", conditions) #>) {<#+
+#>
+                if(<#=string.Join(" && ", conditions) #>) {
+<#+
 	            nbConditionals++;
 	        }
 	    }
 
 	    // Generate code to create a "CheckonlyMatch" object
-	    #><#=QvtCodeGeneratorStrings.CheckResultClassName(relation) #> checkonlysMatch = new <#=QvtCodeGeneratorStrings.CheckResultClassName(relation) #> () {<#+
+#>
+            <#=QvtCodeGeneratorStrings.CheckResultClassName(relation) #> checkonlysMatch = new <#=QvtCodeGeneratorStrings.CheckResultClassName(relation) #> ()
+            {
+<#+
 		foreach (IRelationDomain checkonlyDomain in checkonlyDomains)
 		{
-		    #><#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #> = <#=QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #>,
-			<#+
-		} 
-
-		#>};
-		result.Add(checkonlysMatch);<#+
+#>
+           <#= QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #> = <#=QvtCodeGeneratorStrings.MatchDomainFieldName(checkonlyDomain) #>,
+<#+
+        } 
+#>
+            };
+            result.Add(checkonlysMatch);<#+
 
 		for (int i = 0; i < nbConditionals; i++)
 		{
-		    #>
-			} // End if
-			<#+
+#>
+              } // End if
+<#+
 		}
 
 		foreach (IRelationDomain _ in checkonlyDomains)
 		{
-		    #>
-			} // End foreach
-			<#+
-		}
-	
-	
-	
-	#>
-	return result;
-	}
-	<#+
-	}
- 
- 
- #>
+#>
+            } // End foreach
+<#+
+		} // foreach
+
+#>
+
+            return result;
+        }
+<#+
+	} // end method
+#>

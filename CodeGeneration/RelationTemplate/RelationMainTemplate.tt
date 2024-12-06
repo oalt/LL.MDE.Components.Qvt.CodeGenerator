@@ -10,49 +10,64 @@
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTTemplate" #>
-
 <#@ output extension=".cs" #>
-
-
-<#@ include file="RelationHelperTemplate.tt" #>
-
+<#@ include file="RelationHelperTemplate.tt" #> 
 <#
-
     // Small hack to bypass limitation of ForTea plugin ( https://github.com/MrJul/ForTea/issues/3 )
     // We redeclare members so that ForTea finds them, and enables code completion etc. 
     // The errors can be ignored, as the generated .cs file compiles correctly.
     IRelation relation = this.relation;
     RelationAnalysisResult analysisResult = this.analysisResult;
-    bool useMetamodelInterface = this.useMetamodelInterface;
-    #>
+    bool useMetamodelInterface = this.useMetamodelInterface; 
+#>
+// generated code
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using LL.MDE.Components.Qvt.Common;<#
-
+using LL.MDE.Components.Qvt.Common;
+<#
     // Generating of the "usings", for each package of each metamodel used in the transformation
     foreach (IPackage package in relation.Transformation.ModelParameter.Select(p => p.UsedPackage).SelectMany(i => i).Distinct())
     {
-        #>using <#= package.Name #>;<#
-    }
+#>
+using <#= package.Name #>;
+ <#
+    } // foreach
 
     // Generation of the namespace 
-    #><#= QvtCodeGeneratorStrings.Namespace(relation.Transformation) #>{ <# 
-	 
+#>
+
+<#= QvtCodeGeneratorStrings.Namespace(relation.Transformation) #>
+{
+<# 
     // Generation of the Relation class 
-    #>public class <#=QvtCodeGeneratorStrings.RelationClassName(relation) #> {<#
+#>
+    public class <#=QvtCodeGeneratorStrings.RelationClassName(relation) #>
+    {
+<#
 	if (useMetamodelInterface)
 	{
-	    #>private readonly <#=nameof(IMetaModelInterface) #> editor;<#
-	} 
-		#>private readonly <#= QvtCodeGeneratorStrings.TransformationName(relation.Transformation) #> transformation;
+#>
+        private readonly <#=nameof(IMetaModelInterface) #> editor;
+<#  
+     }
+#> 
+        private readonly <#= QvtCodeGeneratorStrings.TransformationName(relation.Transformation) #> transformation;
 
-		public <#=QvtCodeGeneratorStrings.RelationClassName(relation) #>(<#= useMetamodelInterface ? nameof(IMetaModelInterface) + " editor ," : "" #> <#=QvtCodeGeneratorStrings.TransformationName(relation.Transformation) #> transformation ) {<#
+		public <#=QvtCodeGeneratorStrings.RelationClassName(relation) #>(<#= useMetamodelInterface ? nameof(IMetaModelInterface) + " editor," : "" #> <#=QvtCodeGeneratorStrings.TransformationName(relation.Transformation) #> transformation) 
+        {
+<#
 		if (useMetamodelInterface)
 		{ 
-		    #>this.editor = editor;<# 
-		} 
-			#>this.transformation = transformation;}<# 
+#>
+            this.editor = editor;
+<# 
+        } 
+#>
+            this.transformation = transformation;
+        }
+
+<#
 
     // Generation of the Match class specific for this relation
     GenerateMatchClasses(relation, analysisResult); 
@@ -61,7 +76,11 @@ using LL.MDE.Components.Qvt.Common;<#
     GenerateDictionnaryClasses(relation);
 
 	// Generation of the traceability map
-	#>private readonly Dictionary<CheckOnlyDomains, EnforceDomains> traceabilityMap = new Dictionary<CheckOnlyDomains, EnforceDomains>();<#
+#>
+
+        private readonly Dictionary<CheckOnlyDomains, EnforceDomains> traceabilityMap = new Dictionary<CheckOnlyDomains, EnforceDomains>();
+
+<#
 
 
 	// Generation of a method to try to find previous results (used for when clauses)
@@ -86,11 +105,11 @@ using LL.MDE.Components.Qvt.Common;<#
     }
 
     GenerateEnforceMethod(relation, analysisResult, useMetamodelInterface);
-    #> 
+#> 
 
-}  // End class
+    } // end class
 
-} // End namespace
+} // end namespace
 
 
 

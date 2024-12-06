@@ -28,7 +28,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                             || !d.IsEnforceable.GetValueOrDefault() == checkonly
                             || (d.TypedModel == null) == primitive).Select(d => d.RootVariable).ToList();
             outBindedVariables?.UnionWith(new HashSet<IVariable>(variables));
-            return string.Join(",", variables.Select(d => (withTypes ? d.Type.GetRealTypeName() + " " : "") + d.Name));
+            return string.Join(", ", variables.Select(d => (withTypes ? d.Type.GetRealTypeName() + " " : "") + d.Name));
         }
 
         public static string GenerateRelationParamsCheckonly(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null)

@@ -13,9 +13,6 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
-
-<#@ include file="TransformationHelperTemplate.tt" #>
-
 using System;
 using System.Collections.Generic; 
 using System.Linq;
@@ -27,40 +24,46 @@ using LL.MDE.Components.Qvt.Common;
     IRelationalTransformation transformation = this.Transformation;
     ISet<ITypedModel> validEnforceTargetParams = this.validEnforceTargetParams;
     bool useMetamodelInterface = this.useMetamodelInterface;
-    #>
-
-<# 
+    
     // Generating of the "usings", for each package of each metamodel used in the transformation
     foreach (IPackage package in transformation.ModelParameter.Select(p => p.UsedPackage).SelectMany(i => i).Distinct())
-    { #>
-
+    { 
+#>
 using <#= package.Name #>;
-
-<# } #>
-
-<# // Generation of the namespace #>
+<#
+    } // foreach
+ 
+    // Generation of the namespace 
+#> 
 <#= QvtCodeGeneratorStrings.Namespace(transformation) #> 
 { 
 
-
-<# // Generation of the Transfo class #>
-public class <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> : GeneratedTransformation {
-
-
- 	private readonly <#=nameof(IMetaModelInterface) #> editor;<#
+<# 
+    // Generation of the Transfo class 
+#>
+    public class <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> : GeneratedTransformation
+    {
+        private readonly <#=nameof(IMetaModelInterface) #> editor;
+<#
 
     bool hasFunctions = !transformation.OwnedOperation.IsNullOrEmpty();
 	// Functions object, if any functions are defined
     if (hasFunctions)
     {
-         #>public readonly <#=QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation)#> Functions;<#
-    }
+#>
+         public readonly <#=QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation)#> Functions;
+
+<#
+    } // if
 
 	// Storing each relation instance once
     foreach (IRelation relation in transformation.Rule.OfType<IRelation>())
     {
-        #> public readonly <#= QvtCodeGeneratorStrings.RelationClassName(relation)#> <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>; <#
-    }
+#>
+        public readonly <#= QvtCodeGeneratorStrings.RelationClassName(relation)#> <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>;
+        
+<#
+    } // foraech
 
 	// Dictionnaries for keys
     foreach (IKey key in transformation.OwnedKey)
@@ -69,48 +72,66 @@ public class <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> : 
         allKeyProperties.AddRange(key.Part);
         allKeyProperties.AddRange(key.PropertyPaths().Select(pp => pp.Properties.Last()));
         string tupleTypes = string.Join(",", allKeyProperties.Select(p => p.Type.GetRealTypeName()));
-        #>internal readonly Dictionary<Tuple<<#=tupleTypes#>>, <#=key.Identifies.GetRealTypeName()#>> <#=QvtCodeGeneratorStrings.KeyDictionnaryName(key)#> = new Dictionary<Tuple<<#=tupleTypes#>>, <#=key.Identifies.GetRealTypeName()#>>();<#
-    }
+#>
+        internal readonly Dictionary<Tuple<<#=tupleTypes#>>, <#=key.Identifies.GetRealTypeName()#>> <#=QvtCodeGeneratorStrings.KeyDictionnaryName(key)#> = new Dictionary<Tuple<<#=tupleTypes#>>, <#=key.Identifies.GetRealTypeName()#>>();
+<#
+    } // foreach
 
 	// Constructor
-		 #>public <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> (<#=nameof(IMetaModelInterface) #> editor <#= hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : "" #>) {
+#>
 
-			this.editor = editor;<# 
-			 foreach (IRelation relation in transformation.Rule.OfType<IRelation>())
-    {
-        #>  this.<#= QvtCodeGeneratorStrings.RelationClassName(relation) #> = new <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>(editor, this); 
-		<#
+        public <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> (<#=nameof(IMetaModelInterface) #> editor <#= hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : "" #>)
+        {
+            this.editor = editor;
+<# 
+        foreach (IRelation relation in transformation.Rule.OfType<IRelation>())
+        {
+#>
+            this.<#= QvtCodeGeneratorStrings.RelationClassName(relation) #> = new <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>(editor, this); 
+<#
 		if (hasFunctions)
-		 {
-         #>this.Functions = Functions;<#
-		}
+		{
+#>
+        this.Functions = Functions;
+<#
+        }
     }
-		#>}<# 
-		 
+#>
+        }
 
+<# 
 
 foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
 {
-    #>public void <#= relation.Name #> (<#=RelationTemplateHelper.GenerateRelationParams(true, relation) #>) {
-		<#= QvtCodeGeneratorStrings.RelationClassName(relation) #>.CheckAndEnforce(<#=RelationTemplateHelper.GenerateRelationParams(false, relation) #>) ;
-	}<#
+#>
+        public void <#= relation.Name #> (<#=RelationTemplateHelper.GenerateRelationParams(true, relation)#>) 
+        {
+            <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>.CheckAndEnforce(<#=RelationTemplateHelper.GenerateRelationParams(false, relation) #>);
+        }
+
+<#
 }
 
  
-#>public override void CallTopRelation (string topRelationName, List<object> parameters)
-	{
-		switch (topRelationName)
-		{
-			<# foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
-{ #>
-				case "<#= relation.Name #>":
-					<#= relation.Name #>(<#=  string.Join(",", relation.Domain.OfType<IRelationDomain>().Select(
+#>
+        public override void CallTopRelation(string topRelationName, List<object> parameters)
+        {
+            switch (topRelationName)
+		    {
+<# 
+    foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
+    { 
+#>
+                case "<#= relation.Name #>":
+                    <#= relation.Name #>(<#=  string.Join(",", relation.Domain.OfType<IRelationDomain>().Select(
     d => "(" + d.RootVariable.Type.GetRealTypeName() + ")parameters[" + relation.Domain.IndexOf(d) + "]")) #>);
-					return;
-			<# } #>
+                    break;
+<#
+    } // foreach 
+#>
 
-			}
-		}
+            }
+        }
 
-	} // end class
+    } // end class
 } // end namespace
