@@ -29,7 +29,7 @@ using LL.MDE.Components.Qvt.Common;
     foreach (IPackage package in transformation.ModelParameter.Select(p => p.UsedPackage).SelectMany(i => i).Distinct())
     { 
 #>
-using <#= package.Name #>;
+//using <#= package.Name #>;
 <#
     } // foreach
  
@@ -80,7 +80,7 @@ using <#= package.Name #>;
 	// Constructor
 #>
 
-        public <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> (<#=nameof(IMetaModelInterface) #> editor <#= hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : "" #>)
+        public <#=QvtCodeGeneratorStrings.TransformationName(transformation) #>(<#=nameof(IMetaModelInterface) #> editor<#= hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : "" #>)
         {
             this.editor = editor;
 <# 
@@ -104,7 +104,7 @@ using <#= package.Name #>;
 foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
 {
 #>
-        public void <#= relation.Name #> (<#=RelationTemplateHelper.GenerateRelationParams(true, relation)#>) 
+        public void <#= relation.Name #>(<#=RelationTemplateHelper.GenerateRelationParams(true, relation)#>) 
         {
             <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>.CheckAndEnforce(<#=RelationTemplateHelper.GenerateRelationParams(false, relation) #>);
         }
@@ -123,7 +123,7 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
     { 
 #>
                 case "<#= relation.Name #>":
-                    <#= relation.Name #>(<#=  string.Join(",", relation.Domain.OfType<IRelationDomain>().Select(
+                    <#= relation.Name #>(<#=  string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(
     d => "(" + d.RootVariable.Type.GetRealTypeName() + ")parameters[" + relation.Domain.IndexOf(d) + "]")) #>);
                     break;
 <#

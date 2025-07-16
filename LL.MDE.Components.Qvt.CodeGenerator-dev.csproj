@@ -19,7 +19,6 @@
 
     <ItemGroup>
       <PackageReference Include="Mono.TextTemplating" Version="2.3.1" />
-      <PackageReference Include="NArrange" Version="0.3.5" />
     </ItemGroup>
 
     <ItemGroup>

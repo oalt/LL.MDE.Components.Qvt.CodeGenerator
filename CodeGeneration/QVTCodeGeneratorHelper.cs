@@ -101,6 +101,11 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             RelationMainTemplate template = new RelationMainTemplate(relation, useMetamodelInterface);
             string code = template.TransformText();
 
+            if(code.StartsWith("\r\n"))
+            {
+                code = code.Substring(2);
+            }
+
             // We prefix members accessed with keywords by @
             //TODO find better fix: protected keywords could also be used as domain names, hence as method args in C#
             foreach (string csharpKeyword in csharpKeywords)
@@ -115,6 +120,10 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
         {
             TransformationMainTemplate template = new TransformationMainTemplate(transformation, useMetamodelInterface);
             string code = template.TransformText();
+            if (code.StartsWith("\r\n"))
+            {
+                code = code.Substring(2);
+            }
             return code;
         }
 
@@ -139,7 +148,7 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             string code = GenerateCode(transformation, useMetamodelInterface);
             try
             {
-                code = CodeFormatter.Format(code);
+                //code = CodeFormatter.Format(code);
             }
             catch (Exception)
             {
@@ -157,7 +166,7 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             string code = GenerateCodeFunctions(transformation);
             try
             {
-                code = CodeFormatter.Format(code);
+                //code = CodeFormatter.Format(code);
             }
             catch (Exception)
             {
@@ -175,7 +184,7 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             string code = GenerateCode(relation, useMetamodelInterface);
             try
             {
-                code = CodeFormatter.Format(code);
+                //code = CodeFormatter.Format(code);
             }
             catch (Exception)
             {

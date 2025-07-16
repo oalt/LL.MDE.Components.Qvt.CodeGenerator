@@ -57,7 +57,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             
             #line default
             #line hidden
-            this.Write("using ");
+            this.Write("//using ");
             
             #line 32 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(package.Name));
@@ -222,14 +222,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             
             #line default
             #line hidden
-            this.Write(" (");
+            this.Write("(");
             
             #line 83 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(nameof(IMetaModelInterface)));
             
             #line default
             #line hidden
-            this.Write(" editor ");
+            this.Write(" editor");
             
             #line 83 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : ""));
@@ -298,7 +298,7 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
             
             #line default
             #line hidden
-            this.Write(" (");
+            this.Write("(");
             
             #line 107 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RelationTemplateHelper.GenerateRelationParams(true, relation)));
@@ -358,7 +358,7 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
             this.Write("(");
             
             #line 126 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(",", relation.Domain.OfType<IRelationDomain>().Select(
+            this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(
     d => "(" + d.RootVariable.Type.GetRealTypeName() + ")parameters[" + relation.Domain.IndexOf(d) + "]"))));
             
             #line default

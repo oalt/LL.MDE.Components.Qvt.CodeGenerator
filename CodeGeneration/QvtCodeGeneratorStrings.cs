@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-using LL.MDE.Components.Qvt.Metamodel.QVTBase;
+﻿using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
 using LL.MDE.Components.Qvt.CodeGenerator.Utils;
 
@@ -15,7 +13,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration
 
         public static string Namespace(ITransformation transformation)
         {
-            return "namespace LL.MDE.Components.Qvt.Transformation." + transformation.Name;
+            return "namespace MDD4All.QVT.Transformations." + transformation.Name;
         }
 
         public static string RelationCheckTowards(IRelation relation, ITypedModel param)
