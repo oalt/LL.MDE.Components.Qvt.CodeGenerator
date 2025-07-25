@@ -22,14 +22,54 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
     public class RelationTemplateHelper
 
     {
-        public static string GenerateRelationParams(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null, bool checkonly = true, bool enforce = true, bool primitive = true)
+        public static string GenerateRelationParams(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null, bool checkonly = true, bool enforce = true, bool primitive = true, bool withMetaAttributes = false)
         {
             IList<IVariable> variables = relation.Domain.Cast<RelationDomain>()
-                .Where(d => d.IsEnforceable.GetValueOrDefault() == enforce
-                            || !d.IsEnforceable.GetValueOrDefault() == checkonly
-                            || (d.TypedModel == null) == primitive).Select(d => d.RootVariable).ToList();
+                .Where(domain => domain.IsEnforceable.GetValueOrDefault() == enforce
+                            || !domain.IsEnforceable.GetValueOrDefault() == checkonly
+                            || (domain.TypedModel == null) == primitive).Select(d => d.RootVariable).ToList();
+            
             outBindedVariables?.UnionWith(new HashSet<IVariable>(variables));
-            return string.Join(", ", variables.Select(d => (withTypes ? d.Type.GetRealTypeName() + " " : "") + d.Name));
+
+            string result = string.Empty;
+
+            List<string> variableStrings = new List<string>();
+
+            foreach (IVariable variable in variables)
+            {
+                string variableString = string.Empty;
+
+                if(withMetaAttributes)
+                {
+                    if (relation.Domain.Cast<RelationDomain>().Any(domain => domain.TypedModel == null && domain.RootVariable == variable))
+                    {
+                        variableString += "[QvtPrimitiveParameter] ";
+                    }
+                    else if (relation.Domain.Cast<RelationDomain>().Any(domain => domain.IsEnforceable.GetValueOrDefault(false) && domain.RootVariable == variable))
+                    {
+                        variableString += "[QvtEnforceParameter] ";
+                    }
+                    else if (relation.Domain.Cast<RelationDomain>().Any(domain => !domain.IsEnforceable.GetValueOrDefault(false) && domain.RootVariable == variable))
+                    {
+                        variableString += "[QvtCheckOnlyParameter] ";
+                    }
+                    
+                }
+                if (withTypes)
+                {
+                    variableString += variable.Type.GetRealTypeName() + " ";
+                }
+                
+                variableString += variable.Name;
+                
+                variableStrings.Add(variableString);
+            }
+
+            result = string.Join(", ", variableStrings);
+
+            return result;
+
+            //return string.Join(", ", variables.Select(d => (withMetaAttributes ? "" : "") + (withTypes ? d.Type.GetRealTypeName() + " " : "") + d.Name));
         }
 
         public static string GenerateRelationParamsCheckonly(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null)

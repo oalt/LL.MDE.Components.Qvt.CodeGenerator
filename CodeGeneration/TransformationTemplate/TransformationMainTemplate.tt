@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic; 
 using System.Linq;
 using LL.MDE.Components.Qvt.Common;
+using LL.MDE.Components.Qvt.Common.Attributes;
 <#
     // Small hack to bypass limitation of ForTea plugin ( https://github.com/MrJul/ForTea/issues/3 )
     // We redeclare members so that ForTea finds them, and enables code completion etc. 
@@ -41,6 +42,7 @@ using LL.MDE.Components.Qvt.Common;
 <# 
     // Generation of the Transfo class 
 #>
+    [QvtTransformation]
     public class <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> : GeneratedTransformation
     {
         private readonly <#=nameof(IMetaModelInterface) #> editor;
@@ -89,13 +91,13 @@ using LL.MDE.Components.Qvt.Common;
 #>
             this.<#= QvtCodeGeneratorStrings.RelationClassName(relation) #> = new <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>(editor, this); 
 <#
-		if (hasFunctions)
-		{
+		    if (hasFunctions)
+		    {
 #>
         this.Functions = Functions;
 <#
+            }
         }
-    }
 #>
         }
 
@@ -104,7 +106,8 @@ using LL.MDE.Components.Qvt.Common;
 foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
 {
 #>
-        public void <#= relation.Name #>(<#=RelationTemplateHelper.GenerateRelationParams(true, relation)#>) 
+        [QvtTopRelationCall]
+        public void <#= relation.Name #>(<#=RelationTemplateHelper.GenerateRelationParams(true, relation, withMetaAttributes: true)#>) 
         {
             <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>.CheckAndEnforce(<#=RelationTemplateHelper.GenerateRelationParams(false, relation) #>);
         }
