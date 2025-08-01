@@ -16,6 +16,16 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration
             return "namespace MDD4All.QVT.Transformations." + transformation.Name;
         }
 
+        public static string TransformationProjectName(ITransformation transformation)
+        {
+            return "MDD4All.QVT.Transformations." + transformation.Name;
+        }
+
+        public static string UserInterfaceProjectName(ITransformation transformation)
+        {
+            return "MDD4All.QVT.Transformations." + transformation.Name + ".UI";
+        }
+
         public static string RelationCheckTowards(IRelation relation, ITypedModel param)
         {
             return "CheckTowards" + ToFirstUpper(param.Name);
