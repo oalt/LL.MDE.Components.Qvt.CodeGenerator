@@ -18,46 +18,33 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="CodeGeneration\StarterTemplate\StarterMainTemplate.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>StarterMainTemplate.tt</DependentUpon>
-      </None>
-      <None Include="CodeGeneration\UserInterfaceAppTemplate\UserInterfaceAppMainTemplate.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>UserInterfaceAppMainTemplate.tt</DependentUpon>
-      </None>
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="Mono.TextTemplating" Version="2.3.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LL.MDE.Components.Qvt.Common\src\LL.MDE.Components.Qvt.Common-dev.csproj" />
-      <ProjectReference Include="..\LL.MDE.Components.Qvt.Metamodel\LL.MDE.Components.Qvt.Metamodel-dev.csproj" />
-      <ProjectReference Include="..\SlnParser\src\SlnParser\SlnParser.csproj" />
+      <ProjectReference Include="..\..\..\LL.MDE.Components.Qvt.Common\src\LL.MDE.Components.Qvt.Common-dev.csproj" />
+      <ProjectReference Include="..\..\..\LL.MDE.Components.Qvt.Metamodel\LL.MDE.Components.Qvt.Metamodel-dev.csproj" />
+      <ProjectReference Include="..\..\..\SlnParser\src\SlnParser\SlnParser.csproj" />
     </ItemGroup>
 
     <ItemGroup>
       <Reference Include="NMF.Collections">
-        <HintPath>..\libs\NMF.Collections.dll</HintPath>
+        <HintPath>..\..\..\libs\NMF.Collections.dll</HintPath>
       </Reference>
       <Reference Include="NMF.Expressions">
-        <HintPath>..\libs\NMF.Expressions.dll</HintPath>
+        <HintPath>..\..\..\libs\NMF.Expressions.dll</HintPath>
       </Reference>
       <Reference Include="NMF.Expressions.Linq">
-        <HintPath>..\libs\NMF.Expressions.Linq.dll</HintPath>
+        <HintPath>..\..\..\libs\NMF.Expressions.Linq.dll</HintPath>
       </Reference>
       <Reference Include="NMF.Models">
-        <HintPath>..\libs\NMF.Models.dll</HintPath>
+        <HintPath>..\..\..\libs\NMF.Models.dll</HintPath>
       </Reference>
       <Reference Include="NMF.Serialization">
-        <HintPath>..\libs\NMF.Serialization.dll</HintPath>
+        <HintPath>..\..\..\libs\NMF.Serialization.dll</HintPath>
       </Reference>
       <Reference Include="NMF.Utilities">
-        <HintPath>..\libs\NMF.Utilities.dll</HintPath>
+        <HintPath>..\..\..\libs\NMF.Utilities.dll</HintPath>
       </Reference>
     </ItemGroup>
 
