@@ -1,0 +1,164 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.0</TargetFramework>
+        <RootNamespace>$(MSBuildProjectName.Replace("-dev", ""))</RootNamespace>
+        <AssemblyName>$(MSBuildProjectName.Replace("-dev", ""))</AssemblyName>
+        <SignAssembly>True</SignAssembly>
+        <AssemblyOriginatorKeyFile>MDD4All_Github.snk</AssemblyOriginatorKeyFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="TransformationTemplate.cs" />
+      <Compile Remove="TransformationTemplatePartial.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="packages.config" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Include="CodeGeneration\StarterTemplate\StarterMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>StarterMainTemplate.tt</DependentUpon>
+      </None>
+      <None Include="CodeGeneration\UserInterfaceAppTemplate\UserInterfaceAppMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInterfaceAppMainTemplate.tt</DependentUpon>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Mono.TextTemplating" Version="2.3.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\LL.MDE.Components.Qvt.Common\src\LL.MDE.Components.Qvt.Common-dev.csproj" />
+      <ProjectReference Include="..\LL.MDE.Components.Qvt.Metamodel\LL.MDE.Components.Qvt.Metamodel-dev.csproj" />
+      <ProjectReference Include="..\SlnParser\src\SlnParser\SlnParser.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="NMF.Collections">
+        <HintPath>..\libs\NMF.Collections.dll</HintPath>
+      </Reference>
+      <Reference Include="NMF.Expressions">
+        <HintPath>..\libs\NMF.Expressions.dll</HintPath>
+      </Reference>
+      <Reference Include="NMF.Expressions.Linq">
+        <HintPath>..\libs\NMF.Expressions.Linq.dll</HintPath>
+      </Reference>
+      <Reference Include="NMF.Models">
+        <HintPath>..\libs\NMF.Models.dll</HintPath>
+      </Reference>
+      <Reference Include="NMF.Serialization">
+        <HintPath>..\libs\NMF.Serialization.dll</HintPath>
+      </Reference>
+      <Reference Include="NMF.Utilities">
+        <HintPath>..\libs\NMF.Utilities.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>DescriptorMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\FunctionsInterfaceTemplate\FunctionsInterfaceTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>FunctionsInterfaceTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\RelationTemplate\RelationHelperTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>RelationHelperTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\RelationTemplate\RelationMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>RelationMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\StarterTemplate\StarterMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>StarterMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TransformationProjectMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\TransformationTemplate\TransformationHelperTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TransformationHelperTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TransformationMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\UserInterfaceAppTemplate\UserInterfaceAppMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>UserInterfaceAppMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>UserInterfaceProjectMainTemplate.cs</LastGenOutput>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DescriptorMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\FunctionsInterfaceTemplate\FunctionsInterfaceTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>FunctionsInterfaceTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\RelationTemplate\RelationHelperTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RelationHelperTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\RelationTemplate\RelationMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RelationMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\StarterTemplate\StarterMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>StarterMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TransformationProjectMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\TransformationTemplate\TransformationHelperTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TransformationHelperTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\TransformationTemplate\TransformationMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TransformationMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\UserInterfaceAppTemplate\UserInterfaceAppMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInterfaceAppMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInterfaceProjectMainTemplate.tt</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,67 @@
+﻿<#@ template language="C#" hostspecific="false" debug="true" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Common" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.QVTRelationExtensions" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EMOF" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EMOFExtensions" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EssentialOCL" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+// generated code
+using LL.MDE.Components.Qvt.Common.DataModels;
+
+namespace <#= QvtCodeGeneratorStrings.TransformationProjectName(Transformation) #>
+{
+    public class TransformationDescriptor : AbstractTransformationDescriptor
+    {
+        public TransformationDescriptor() 
+        {
+            TransformationName = "<#= Transformation.Name #>";
+<#
+    IRelation relation = Transformation.Rule.OfType<IRelation>().First(rel => rel.IsTopLevel.GetValueOrDefault(false));
+#>            
+            TopRelationName = "<#= relation.Name #>";
+
+            TransformationStarter = new TransformationStarter(this);
+
+<#
+     
+    IEnumerable<IRelationDomain> relationDomains = relation.Domain.OfType<IRelationDomain>();
+
+    foreach(IRelationDomain relationDomain in relationDomains)
+    {
+#>
+            ParameterDescriptor <#= relationDomain.RootVariable.Name #>ParameterDescriptor = new ParameterDescriptor()
+            {
+                Name = "<#= relationDomain.RootVariable.Name #>",
+<#
+        if(relationDomain.IsEnforceable != null && relationDomain.IsEnforceable == true)
+        {
+#>
+                DomainParameterType = DomainParameterType.Enforce,
+<#
+        }
+        else
+        {
+#>
+                DomainParameterType = DomainParameterType.CheckOnly,
+<#
+        }
+#>
+                DotNetType = typeof(<#= relationDomain.RootVariable.Type.GetRealTypeName() #>)
+            };
+        
+            Parameters.Add(<#= relationDomain.RootVariable.Name #>ParameterDescriptor);
+
+<#
+    }
+#>
+        }
+    }
+}
