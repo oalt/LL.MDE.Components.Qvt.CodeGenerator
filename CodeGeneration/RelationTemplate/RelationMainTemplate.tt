@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+﻿<#@ template debug="true" hostspecific="false" language="C#" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Common" #>
 <#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.Analysis" #>
 <#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>

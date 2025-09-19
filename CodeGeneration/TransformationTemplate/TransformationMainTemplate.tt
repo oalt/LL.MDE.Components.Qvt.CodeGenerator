@@ -13,6 +13,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+// generated code
 using System;
 using System.Collections.Generic; 
 using System.Linq;
@@ -123,7 +124,7 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
 		    {
 <# 
     foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
-    { 
+    {
 #>
                 case "<#= relation.Name #>":
                     <#= relation.Name #>(<#=  string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(

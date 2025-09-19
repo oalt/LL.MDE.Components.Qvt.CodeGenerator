@@ -38,10 +38,9 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("// generated code\r\nusing LL.MDE.Components.Qvt.Common;\r\nusing LL.MDE.Components.Q" +
-                    "vt.Common.DataModels;\r\n\r\n");
+            this.Write("// generated code\r\nusing LL.MDE.Components.Qvt.Common;\r\n\r\n");
             
-            #line 20 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
+            #line 19 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.Namespace(Transformation)));
             
             #line default
@@ -60,21 +59,21 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate
 
             ");
             
-            #line 32 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
+            #line 31 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(Transformation)));
             
             #line default
             #line hidden
             this.Write(" transformation = new ");
             
-            #line 32 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
+            #line 31 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(Transformation)));
             
             #line default
             #line hidden
             this.Write("(reflectiveMetamodelInterface);\r\n\r\n\r\n");
             
-            #line 35 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
+            #line 34 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
  
     foreach (IRelation relation in Transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
     { 
@@ -84,14 +83,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate
             #line hidden
             this.Write("            transformation.");
             
-            #line 39 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
+            #line 38 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 39 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
+            #line 38 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(
     d => "(" + d.RootVariable.Type.GetRealTypeName() + ")TransformationDescriptor.Parameters[" + relation.Domain.IndexOf(d) + "].ParameterInstance"))));
             
@@ -99,7 +98,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate
             #line hidden
             this.Write(");\r\n            \r\n");
             
-            #line 42 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
+            #line 41 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
 
     } // foreach 
 

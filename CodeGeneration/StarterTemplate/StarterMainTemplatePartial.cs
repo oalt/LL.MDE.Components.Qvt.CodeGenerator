@@ -31,6 +31,15 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate
                     }
                 }
             }
+
+            //IRelation relation = null;
+            //IEnumerable<IRelationDomain> relationDomains = relation.Domain.OfType<IRelationDomain>();
+
+            ////foreach (IRelationDomain relationDomain in relationDomains)
+            ////{
+            ////    relationDomain.RootVariable.GetRealTypeName();
+            ////}
+
         }
     }
 }

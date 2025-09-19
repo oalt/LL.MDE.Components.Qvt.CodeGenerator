@@ -18,12 +18,26 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="CodeGeneration\StarterTemplate\StarterMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>StarterMainTemplate.tt</DependentUpon>
+      </None>
+      <None Include="CodeGeneration\UserInterfaceAppTemplate\UserInterfaceAppMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInterfaceAppMainTemplate.tt</DependentUpon>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Mono.TextTemplating" Version="2.3.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\LL.MDE.Components.Qvt.Common\LL.MDE.Components.Qvt.Common-dev.csproj" />
+      <ProjectReference Include="..\LL.MDE.Components.Qvt.Common\src\LL.MDE.Components.Qvt.Common-dev.csproj" />
       <ProjectReference Include="..\LL.MDE.Components.Qvt.Metamodel\LL.MDE.Components.Qvt.Metamodel-dev.csproj" />
+      <ProjectReference Include="..\SlnParser\src\SlnParser\SlnParser.csproj" />
     </ItemGroup>
 
     <ItemGroup>
@@ -48,6 +62,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>DescriptorMainTemplate.cs</LastGenOutput>
+      </None>
       <None Update="CodeGeneration\FunctionsInterfaceTemplate\FunctionsInterfaceTemplate.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>FunctionsInterfaceTemplate.cs</LastGenOutput>
@@ -60,6 +78,14 @@
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>RelationMainTemplate.cs</LastGenOutput>
       </None>
+      <None Update="CodeGeneration\StarterTemplate\StarterMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>StarterMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>TransformationProjectMainTemplate.cs</LastGenOutput>
+      </None>
       <None Update="CodeGeneration\TransformationTemplate\TransformationHelperTemplate.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>TransformationHelperTemplate.cs</LastGenOutput>
@@ -68,6 +94,14 @@
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>TransformationMainTemplate.cs</LastGenOutput>
       </None>
+      <None Update="CodeGeneration\UserInterfaceAppTemplate\UserInterfaceAppMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>UserInterfaceAppMainTemplate.cs</LastGenOutput>
+      </None>
+      <None Update="CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>UserInterfaceProjectMainTemplate.cs</LastGenOutput>
+      </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -75,6 +109,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DescriptorMainTemplate.tt</DependentUpon>
+      </Compile>
       <Compile Update="CodeGeneration\FunctionsInterfaceTemplate\FunctionsInterfaceTemplate.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -90,6 +129,16 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>RelationMainTemplate.tt</DependentUpon>
       </Compile>
+      <Compile Update="CodeGeneration\StarterTemplate\StarterMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>StarterMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>TransformationProjectMainTemplate.tt</DependentUpon>
+      </Compile>
       <Compile Update="CodeGeneration\TransformationTemplate\TransformationHelperTemplate.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -99,6 +148,16 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>TransformationMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\UserInterfaceAppTemplate\UserInterfaceAppMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInterfaceAppMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>UserInterfaceProjectMainTemplate.tt</DependentUpon>
       </Compile>
     </ItemGroup>
 

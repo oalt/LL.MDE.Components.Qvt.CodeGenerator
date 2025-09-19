@@ -14,6 +14,8 @@ using SlnParser.Contracts;
 using SlnParser;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DescriptorTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceProjectTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceAppTemplate;
 
 namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
 {
@@ -242,6 +244,12 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             }
 
             GenerateStarterCode(transformation, transformationPath, useMetamodelInterface);
+
+            CreateUserInterfaceProjectFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.UserInterfaceProjectName(transformation), transformation);
+        
+            CreateUserInterfaceAppFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.UserInterfaceProjectName(transformation), transformation);
+
+            CreateTransformationDescriptorFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation), transformation);
         }
 
         private static string GenerateSolutionStructure(string path, IRelationalTransformation transformation)
@@ -364,6 +372,64 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             solutionWriter.WriteSolutionFile(solution, solutionFilename);
 
 
+            
+        }
+        
+        private static void CreateUserInterfaceProjectFile(string path, IRelationalTransformation transformation)
+        {
+            UserInterfaceProjectMainTemplate template = new UserInterfaceProjectMainTemplate(transformation);
+            string code = template.TransformText();
+            try
+            {
+                //code = CodeFormatter.Format(code);
+            }
+            catch (Exception)
+            {
+                // TODO
+            }
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            File.WriteAllText(PrepareOutputFolderString(path) + "/" + QvtCodeGeneratorStrings.UserInterfaceProjectName(transformation) + ".csproj", code);
+        }
+
+        private static void CreateUserInterfaceAppFile(string path, IRelationalTransformation transformation)
+        {
+            UserInterfaceAppMainTemplate template = new UserInterfaceAppMainTemplate(transformation);
+            string code = template.TransformText();
+            try
+            {
+                //code = CodeFormatter.Format(code);
+            }
+            catch (Exception)
+            {
+                // TODO
+            }
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            File.WriteAllText(PrepareOutputFolderString(path) + "/App.cs", code);
+        }
+
+        private static void CreateTransformationDescriptorFile(string path, IRelationalTransformation transformation)
+        {
+            DescriptorMainTemplate template = new DescriptorMainTemplate(transformation);
+            string code = template.TransformText();
+            try
+            {
+                //code = CodeFormatter.Format(code);
+            }
+            catch (Exception)
+            {
+                // TODO
+            }
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            File.WriteAllText(PrepareOutputFolderString(path) + "/TransformationDescriptor.cs", code);
             
         }
     }
