@@ -22,7 +22,7 @@ using LL.MDE.Components.Qvt.Common;
     foreach (IPackage package in relation.Transformation.ModelParameter.Select(p => p.UsedPackage).SelectMany(i => i).Distinct())
     {
 #>
-using <#= package.Name #>.Extensions;
+using DataModelExtensions.<#= package.Name #>;
 <#
     } // foreach
     
