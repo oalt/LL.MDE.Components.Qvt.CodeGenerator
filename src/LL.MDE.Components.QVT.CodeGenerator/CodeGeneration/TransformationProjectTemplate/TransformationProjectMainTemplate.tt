@@ -3,26 +3,58 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EMOF" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions" #>
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CycloneDX.Core" Version="10.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\LL.MDE.Components.Qvt.Common\src\LL.MDE.Components.Qvt.Common-dev.csproj" />
-    <ProjectReference Include="..\MDD4All.QVT.MetamodelExtensions\src\MDD4All.QVT.MetamodelExtensions-dev.csproj" />
+    <ProjectReference Include="..\DataModelExtensions\DataModelExtensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Interop.EA">
-      <HintPath>..\libs\Interop.EA.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+<#
+    foreach(IPackage mmPackage in Transformation.GetMetaModelPackagesForTransformation())
+    {
+        string type = mmPackage.GetTag("ReferenceType")?.Value;
+        string name = mmPackage.GetTag("Name")?.Value;
+        string version = mmPackage.GetTag("Version")?.Value;
+
+        if(!string.IsNullOrEmpty(type))
+        {
+            if(type == "Project")
+            {
+#>
+    <ProjectReference <#= "Include=\"..\\" + name + "\\src\\" + name + "\\" + name + "-dev.csproj" + "\"" #> />
+<#
+            }
+            else if(type == "Package")
+            {
+#>
+    <PackageReference Include="<#= name #>" Version="<#= version #>" />
+<#
+            }
+            else if(type == "File")
+            {
+#>
+    <Reference Include="<#= name #>">
+        <HintPath><#= "..\\libs\\"+  name + ".dll" #></HintPath>
+        <EmbedInteropTypes>false</EmbedInteropTypes>
     </Reference>
+<#
+            }
+        }
+
+    }
+#>
   </ItemGroup>
 
 </Project>

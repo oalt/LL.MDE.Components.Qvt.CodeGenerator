@@ -1,4 +1,5 @@
 ﻿using LL.MDE.Components.Qvt.CodeGenerator.Analysis;
+using LL.MDE.Components.Qvt.Metamodel.EMOF;
 using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceProjec
                     }
                 }
             }
+            
         }
     }
 }

@@ -12,6 +12,10 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
     using System.Linq;
     using System.Text;
     using System.Collections.Generic;
+    using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
+    using LL.MDE.Components.Qvt.Metamodel.QVTBase;
+    using LL.MDE.Components.Qvt.Metamodel.EMOF;
+    using LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions;
     using System;
     
     /// <summary>
@@ -32,25 +36,105 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include=""CycloneDX.Core"" Version=""10.0.0"" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include=""..\LL.MDE.Components.Qvt.Common\src\LL.MDE.Components.Qvt.Common-dev.csproj"" />
-    <ProjectReference Include=""..\MDD4All.QVT.MetamodelExtensions\src\MDD4All.QVT.MetamodelExtensions-dev.csproj"" />
+    <ProjectReference Include=""..\DataModelExtensions\DataModelExtensions.csproj"" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include=""Interop.EA"">
-      <HintPath>..\libs\Interop.EA.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-    </Reference>
-  </ItemGroup>
+");
+            
+            #line 24 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
 
-</Project>");
+    foreach(IPackage mmPackage in Transformation.GetMetaModelPackagesForTransformation())
+    {
+        string type = mmPackage.GetTag("ReferenceType")?.Value;
+        string name = mmPackage.GetTag("Name")?.Value;
+        string version = mmPackage.GetTag("Version")?.Value;
+
+        if(!string.IsNullOrEmpty(type))
+        {
+            if(type == "Project")
+            {
+
+            
+            #line default
+            #line hidden
+            this.Write("    <ProjectReference ");
+            
+            #line 36 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture("Include=\"..\\" + name + "\\src\\" + name + "\\" + name + "-dev.csproj" + "\""));
+            
+            #line default
+            #line hidden
+            this.Write(" />\r\n");
+            
+            #line 37 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+
+            }
+            else if(type == "Package")
+            {
+
+            
+            #line default
+            #line hidden
+            this.Write("    <PackageReference Include=\"");
+            
+            #line 42 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(name));
+            
+            #line default
+            #line hidden
+            this.Write("\" Version=\"");
+            
+            #line 42 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(version));
+            
+            #line default
+            #line hidden
+            this.Write("\" />\r\n");
+            
+            #line 43 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+
+            }
+            else if(type == "File")
+            {
+
+            
+            #line default
+            #line hidden
+            this.Write("    <Reference Include=\"");
+            
+            #line 48 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(name));
+            
+            #line default
+            #line hidden
+            this.Write("\">\r\n        <HintPath>");
+            
+            #line 49 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture("..\\libs\\"+  name + ".dll"));
+            
+            #line default
+            #line hidden
+            this.Write("</HintPath>\r\n        <EmbedInteropTypes>false</EmbedInteropTypes>\r\n    </Referenc" +
+                    "e>\r\n");
+            
+            #line 52 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+
+            }
+        }
+
+    }
+
+            
+            #line default
+            #line hidden
+            this.Write("  </ItemGroup>\r\n\r\n</Project>");
             return this.GenerationEnvironment.ToString();
         }
     }

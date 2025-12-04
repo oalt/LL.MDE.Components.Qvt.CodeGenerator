@@ -16,6 +16,7 @@ using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DescriptorTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceProjectTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceAppTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProjectTemplate;
 
 namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
 {
@@ -250,6 +251,8 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             CreateUserInterfaceAppFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.UserInterfaceProjectName(transformation), transformation);
 
             CreateTransformationDescriptorFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation), transformation);
+
+            CreateTransformationProjectFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation), transformation);
         }
 
         private static string GenerateSolutionStructure(string path, IRelationalTransformation transformation)
@@ -431,6 +434,19 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             }
             File.WriteAllText(PrepareOutputFolderString(path) + "/TransformationDescriptor.cs", code);
             
+        }
+
+        private static void CreateTransformationProjectFile(string path, IRelationalTransformation transformation)
+        {
+            TransformationProjectMainTemplate template = new TransformationProjectMainTemplate(transformation);
+
+            string code = template.TransformText();
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+            File.WriteAllText(PrepareOutputFolderString(path) + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation) + ".csproj", code);
         }
     }
 }
