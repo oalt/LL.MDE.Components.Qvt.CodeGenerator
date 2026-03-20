@@ -54,7 +54,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             this.Write("using DataModelExtensions.");
             
             #line 25 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(package.Name));
+            this.Write(this.ToStringHelper.ToStringWithCulture(package.GetNamespace()));
             
             #line default
             #line hidden

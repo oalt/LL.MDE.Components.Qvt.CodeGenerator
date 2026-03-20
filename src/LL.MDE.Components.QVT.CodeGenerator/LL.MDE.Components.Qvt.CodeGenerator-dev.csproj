@@ -18,6 +18,14 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Include="CodeGeneration\DataModelExtensions\DataModelExtensionsTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DataModelExtensionsTemplate.tt</DependentUpon>
+      </None>
+    </ItemGroup>
+
+    <ItemGroup>
       <PackageReference Include="Mono.TextTemplating" Version="2.3.1" />
     </ItemGroup>
 
@@ -49,6 +57,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <None Update="CodeGeneration\DataModelExtensions\DataModelExtensionsTemplate.tt">
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+        <LastGenOutput>DataModelExtensionsTemplate.cs</LastGenOutput>
+      </None>
       <None Update="CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>DescriptorMainTemplate.cs</LastGenOutput>
@@ -96,6 +108,11 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Compile Update="CodeGeneration\DataModelExtensions\DataModelExtensionsTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DataModelExtensionsTemplate.tt</DependentUpon>
+      </Compile>
       <Compile Update="CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>

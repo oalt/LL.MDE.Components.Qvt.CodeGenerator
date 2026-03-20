@@ -25,13 +25,15 @@
     foreach(IPackage mmPackage in Transformation.GetMetaModelPackagesForTransformation())
     {
         string type = mmPackage.GetTag("ReferenceType")?.Value;
-        string name = mmPackage.GetTag("Name")?.Value;
+        string packageName = mmPackage.GetTag("PackageName")?.Value;
         string version = mmPackage.GetTag("Version")?.Value;
+        string name = mmPackage.GetNamespace();
 
         if(!string.IsNullOrEmpty(type))
         {
             if(type == "Project")
             {
+                
 #>
     <ProjectReference <#= "Include=\"..\\" + name + "\\src\\" + name + "\\" + name + "-dev.csproj" + "\"" #> />
 <#
@@ -39,14 +41,14 @@
             else if(type == "Package")
             {
 #>
-    <PackageReference Include="<#= name #>" Version="<#= version #>" />
+    <PackageReference Include="<#= packageName #>" Version="<#= version #>" />
 <#
             }
             else if(type == "File")
             {
 #>
     <Reference Include="<#= name #>">
-        <HintPath><#= "..\\libs\\"+  name + ".dll" #></HintPath>
+        <HintPath><#= "..\\libs\\"+  packageName + ".dll" #></HintPath>
         <EmbedInteropTypes>false</EmbedInteropTypes>
     </Reference>
 <#

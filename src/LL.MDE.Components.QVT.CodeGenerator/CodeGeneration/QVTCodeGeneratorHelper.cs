@@ -17,6 +17,10 @@ using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceProjectTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceAppTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProjectTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DataModelExtensions;
+using LL.MDE.Components.Qvt.Metamodel.EMOF;
+using LL.MDE.Components.Qvt.Metamodel.QVTBase;
+using LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions;
 
 namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
 {
@@ -253,6 +257,8 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             CreateTransformationDescriptorFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation), transformation);
 
             CreateTransformationProjectFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation), transformation);
+
+            CreateDataModelExtensionFile(outputFolderAbsolute, transformation);
         }
 
         private static string GenerateSolutionStructure(string path, IRelationalTransformation transformation)
@@ -447,6 +453,45 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
                 Directory.CreateDirectory(path);
             }
             File.WriteAllText(PrepareOutputFolderString(path) + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation) + ".csproj", code);
+        }
+
+        private static void CreateDataModelExtensionFile(string path, IRelationalTransformation transformation)
+        {
+
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            foreach (ITypedModel typedModel in transformation.ModelParameter)
+            {
+
+                IPackage mmPackage = typedModel.UsedPackage.First();
+
+                if (mmPackage != null)
+                {
+                    string nameSpace = mmPackage.GetNamespace();
+
+                    string folderName = PrepareOutputFolderString(path) + "/" + QvtCodeGeneratorStrings.DataModelExtensionsProjectName() + "/" + nameSpace;
+
+                    if (!Directory.Exists(folderName))
+                    {
+                        Directory.CreateDirectory(folderName);
+                    }
+
+                    string filename = folderName + "/Extensions.cs";
+
+                    if (!File.Exists(filename))
+                    {
+                        DataModelExtensionsTemplate dataModelExtensionsTemplate = new DataModelExtensionsTemplate(nameSpace);
+
+                        string code = dataModelExtensionsTemplate.TransformText();
+
+                        File.WriteAllText(filename, code);
+                    }
+                }
+            }
         }
     }
 }
