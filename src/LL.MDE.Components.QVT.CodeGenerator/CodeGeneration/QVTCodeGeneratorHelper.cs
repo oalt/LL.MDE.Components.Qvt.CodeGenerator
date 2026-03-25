@@ -21,6 +21,8 @@ using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DataModelExtensions;
 using LL.MDE.Components.Qvt.Metamodel.EMOF;
 using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ConfigurationProjectTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ConfiguratorTemplate;
 
 namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
 {
@@ -259,6 +261,8 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             CreateTransformationProjectFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation), transformation);
 
             CreateDataModelExtensionFile(outputFolderAbsolute, transformation);
+
+            GenerateConfigurationProject(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.ConfigurationProjectName(transformation), transformation);
         }
 
         private static string GenerateSolutionStructure(string path, IRelationalTransformation transformation)
@@ -491,6 +495,34 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
                         File.WriteAllText(filename, code);
                     }
                 }
+            }
+        }
+
+        public static void GenerateConfigurationProject(string path, IRelationalTransformation transformation)
+        {
+            string projectFileName = path + "/" + QvtCodeGeneratorStrings.ConfigurationProjectName(transformation) + ".csproj";
+
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+
+            if(!File.Exists(projectFileName))
+            {
+                ConfigurationProjectMainTemplate template = new ConfigurationProjectMainTemplate();
+                string code = template.TransformText();
+
+                File.WriteAllText(projectFileName, code);
+            }
+
+            string configuratorFileName = path + "/TransformationConfigurator.cs";
+
+            if (!File.Exists(configuratorFileName))
+            {
+                ConfiguratorMainTemplate template = new ConfiguratorMainTemplate(transformation);
+                string code = template.TransformText();
+             
+                File.WriteAllText(configuratorFileName, code);
             }
         }
     }

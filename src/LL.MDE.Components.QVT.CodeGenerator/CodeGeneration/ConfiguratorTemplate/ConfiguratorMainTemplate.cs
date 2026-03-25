@@ -7,7 +7,7 @@
 //     der Code neu generiert wird.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DescriptorTemplate
+namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ConfiguratorTemplate
 {
     using LL.MDE.Components.Qvt.Common;
     using LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions;
@@ -19,8 +19,8 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DescriptorTemplate
     using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
     using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration;
     using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate;
+    using NMF.Utilities;
     using System.Linq;
-    using System.Text;
     using System.Collections.Generic;
     using System;
     
@@ -28,9 +28,9 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DescriptorTemplate
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
+    #line 1 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\ConfiguratorTemplate\ConfiguratorMainTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public partial class DescriptorMainTemplate : DescriptorMainTemplateBase
+    public partial class ConfiguratorMainTemplate : ConfiguratorMainTemplateBase
     {
 #line hidden
         /// <summary>
@@ -38,136 +38,16 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DescriptorTemplate
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("// generated code\r\nusing LL.MDE.Components.Qvt.Common.DataModels;\r\nusing MDD4All." +
-                    "QVT.DataAccess.Default;\r\nusing MDD4All.QVT.Transformations.");
+            this.Write("using LL.MDE.Components.Qvt.Common.DataModels;\r\n\r\n");
             
-            #line 19 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Transformation.Name));
-            
-            #line default
-            #line hidden
-            this.Write(".Configuration;\r\n\r\nnamespace ");
-            
-            #line 21 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationProjectName(Transformation)));
+            #line 18 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\ConfiguratorTemplate\ConfiguratorMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.Namespace(Transformation)));
             
             #line default
             #line hidden
-            this.Write("\r\n{\r\n    public class TransformationDescriptor : AbstractTransformationDescriptor" +
-                    "\r\n    {\r\n        public TransformationDescriptor() \r\n        {\r\n            Tran" +
-                    "sformationName = \"");
-            
-            #line 27 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Transformation.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\";\r\n");
-            
-            #line 28 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-
-    IRelation relation = Transformation.Rule.OfType<IRelation>().First(rel => rel.IsTopLevel.GetValueOrDefault(false));
-
-            
-            #line default
-            #line hidden
-            this.Write("            \r\n            TopRelationName = \"");
-            
-            #line 31 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
-            
-            #line default
-            #line hidden
-            this.Write(@""";
-
-            TransformationStarter = new TransformationStarter(this);
-
-            Configuration = new DefaultTransformationConfiguration();
-
-            TransformationConfigurator transformationConfigurator = new TransformationConfigurator();
-            transformationConfigurator.ConfigureTransformation(Configuration);
-");
-            
-            #line 39 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-
-     
-    IEnumerable<IRelationDomain> relationDomains = relation.Domain.OfType<IRelationDomain>();
-
-    foreach(IRelationDomain relationDomain in relationDomains)
-    {
-
-            
-            #line default
-            #line hidden
-            this.Write("            ParameterDescriptor ");
-            
-            #line 46 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(relationDomain.RootVariable.Name));
-            
-            #line default
-            #line hidden
-            this.Write("ParameterDescriptor = new ParameterDescriptor()\r\n            {\r\n                N" +
-                    "ame = \"");
-            
-            #line 48 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(relationDomain.RootVariable.Name));
-            
-            #line default
-            #line hidden
-            this.Write("\",\r\n");
-            
-            #line 49 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-
-        if(relationDomain.IsEnforceable != null && relationDomain.IsEnforceable == true)
-        {
-
-            
-            #line default
-            #line hidden
-            this.Write("                DomainParameterType = DomainParameterType.Enforce,\r\n");
-            
-            #line 54 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-
-        }
-        else
-        {
-
-            
-            #line default
-            #line hidden
-            this.Write("                DomainParameterType = DomainParameterType.CheckOnly,\r\n");
-            
-            #line 60 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-
-        }
-
-            
-            #line default
-            #line hidden
-            this.Write("                DotNetType = typeof(");
-            
-            #line 63 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(relationDomain.RootVariable.Type.GetRealTypeName()));
-            
-            #line default
-            #line hidden
-            this.Write(")\r\n            };\r\n        \r\n            Parameters.Add(");
-            
-            #line 66 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(relationDomain.RootVariable.Name));
-            
-            #line default
-            #line hidden
-            this.Write("ParameterDescriptor);\r\n\r\n");
-            
-            #line 68 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\DescriptorTemplate\DescriptorMainTemplate.tt"
-
-    }
-
-            
-            #line default
-            #line hidden
-            this.Write("        }\r\n    }\r\n}\r\n");
+            this.Write(".Configuration\r\n{\r\n    public class TransformationConfigurator\r\n    {\r\n        pu" +
+                    "blic void ConfigureTransformation(ITransformationConfiguration configuration)\r\n " +
+                    "       {\r\n            \r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
     }
@@ -179,7 +59,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.DescriptorTemplate
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
-    public class DescriptorMainTemplateBase
+    public class ConfiguratorMainTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

@@ -26,6 +26,11 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration
             return "MDD4All.QVT.Transformations." + transformation.Name + ".UI";
         }
 
+        public static string ConfigurationProjectName(ITransformation transformation)
+        {
+            return "MDD4All.QVT.Transformations." + transformation.Name + ".Configuration";
+        }
+
         public static string DataModelExtensionsProjectName()
         {
             return "DataModelExtensions";

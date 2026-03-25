@@ -15,6 +15,8 @@
 <#@ import namespace="System.Collections.Generic" #>
 // generated code
 using LL.MDE.Components.Qvt.Common.DataModels;
+using MDD4All.QVT.DataAccess.Default;
+using MDD4All.QVT.Transformations.<#= Transformation.Name #>.Configuration;
 
 namespace <#= QvtCodeGeneratorStrings.TransformationProjectName(Transformation) #>
 {
@@ -30,6 +32,10 @@ namespace <#= QvtCodeGeneratorStrings.TransformationProjectName(Transformation) 
 
             TransformationStarter = new TransformationStarter(this);
 
+            Configuration = new DefaultTransformationConfiguration();
+
+            TransformationConfigurator transformationConfigurator = new TransformationConfigurator();
+            transformationConfigurator.ConfigureTransformation(Configuration);
 <#
      
     IEnumerable<IRelationDomain> relationDomains = relation.Domain.OfType<IRelationDomain>();
