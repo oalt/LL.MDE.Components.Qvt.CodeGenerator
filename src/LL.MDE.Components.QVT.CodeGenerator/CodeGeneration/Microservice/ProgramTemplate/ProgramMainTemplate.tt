@@ -1,0 +1,57 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Common" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.QVTRelationExtensions" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EMOF" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EMOFExtensions" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EssentialOCL" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate" #>
+<#@ import namespace="NMF.Utilities" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
+
+<#= QvtCodeGeneratorStrings.Namespace(Transformation) #>.Microservice
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddControllers().AddNewtonsoftJson(options =>
+            {
+                options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
+            });
+
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            builder.Services.AddSwaggerGenNewtonsoftSupport();
+
+            WebApplication app = builder.Build();
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+
+            app.UseAuthorization();
+
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}

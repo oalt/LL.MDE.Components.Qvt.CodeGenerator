@@ -1,6 +1,8 @@
 ﻿using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.QVTRelation;
 using LL.MDE.Components.Qvt.CodeGenerator.Utils;
+using System.Linq;
+using LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions;
 
 namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration
 {
@@ -144,6 +146,22 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration
         public static string KeyDictionnaryName(IKey key)
         {
             return key.Identifies.Name + "Keys";
+        }
+
+        public static string FirstEnforceType(IRelation relation)
+        {
+            string result = relation.Domain.Cast<RelationDomain>()
+                                .Where(domain => domain.IsEnforceable.GetValueOrDefault() == true).First()
+                                .RootVariable.Type.GetRealTypeName();
+            return result;
+        }
+
+        public static string FirstCheckOnlyType(IRelation relation)
+        {
+            string result = relation.Domain.Cast<RelationDomain>()
+                                .Where(domain => domain.IsEnforceable.GetValueOrDefault() == false).First()
+                                .RootVariable.Type.GetRealTypeName();
+            return result;
         }
     }
 }

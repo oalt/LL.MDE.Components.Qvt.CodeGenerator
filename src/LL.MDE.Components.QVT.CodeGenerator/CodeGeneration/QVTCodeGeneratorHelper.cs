@@ -23,6 +23,7 @@ using LL.MDE.Components.Qvt.Metamodel.QVTBase;
 using LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ConfigurationProjectTemplate;
 using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ConfiguratorTemplate;
+using LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.Microservice;
 
 namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
 {
@@ -234,7 +235,9 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             File.WriteAllText(PrepareOutputFolderString(outputFolderAbsolute) + QvtCodeGeneratorStrings.GetFileName(relation), code);
         }
 
-        public static void GenerateAllCode(IRelationalTransformation transformation, string outputFolderAbsolute, bool useMetamodelInterface = true)
+        public static void GenerateAllCode(IRelationalTransformation transformation, string outputFolderAbsolute,
+                                           bool useMetamodelInterface = true,
+                                           bool generateMicroservice = false)
         {
 
             string transformationPath = GenerateSolutionStructure(outputFolderAbsolute, transformation);
@@ -253,7 +256,7 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             GenerateStarterCode(transformation, transformationPath, useMetamodelInterface);
 
             CreateUserInterfaceProjectFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.UserInterfaceProjectName(transformation), transformation);
-        
+
             CreateUserInterfaceAppFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.UserInterfaceProjectName(transformation), transformation);
 
             CreateTransformationDescriptorFile(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.TransformationProjectName(transformation), transformation);
@@ -263,6 +266,13 @@ namespace LL.MDE.Components.Qvt.QvtCodeGenerator.CodeGeneration
             CreateDataModelExtensionFile(outputFolderAbsolute, transformation);
 
             GenerateConfigurationProject(outputFolderAbsolute + "/" + QvtCodeGeneratorStrings.ConfigurationProjectName(transformation), transformation);
+
+            if (generateMicroservice)
+            {
+                MicroserviceGenerator microserviceGenerator = new MicroserviceGenerator(transformation, outputFolderAbsolute);
+
+                microserviceGenerator.GenerateMicroservice();
+            }
         }
 
         private static string GenerateSolutionStructure(string path, IRelationalTransformation transformation)

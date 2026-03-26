@@ -77,6 +77,26 @@
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>FunctionsInterfaceTemplate.cs</LastGenOutput>
       </None>
+      <None Update="CodeGeneration\Microservice\AppSettingsTemplate\AppSettingsMainTemplate.tt">
+        <LastGenOutput>AppSettingsMainTemplate.cs</LastGenOutput>
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+      </None>
+      <None Update="CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt">
+        <LastGenOutput>ControllerMainTemplate.cs</LastGenOutput>
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+      </None>
+      <None Update="CodeGeneration\Microservice\LaunchSettingsTemplate\LaunchSettingsMainTemplate.tt">
+        <LastGenOutput>LaunchSettingsMainTemplate.cs</LastGenOutput>
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+      </None>
+      <None Update="CodeGeneration\Microservice\ProgramTemplate\ProgramMainTemplate.tt">
+        <LastGenOutput>ProgramMainTemplate.cs</LastGenOutput>
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+      </None>
+      <None Update="CodeGeneration\Microservice\ProjectTemplate\MicroserviceProjectMainTemplate.tt">
+        <LastGenOutput>MicroserviceProjectMainTemplate.cs</LastGenOutput>
+        <Generator>TextTemplatingFilePreprocessor</Generator>
+      </None>
       <None Update="CodeGeneration\RelationTemplate\RelationHelperTemplate.tt">
         <Generator>TextTemplatingFilePreprocessor</Generator>
         <LastGenOutput>RelationHelperTemplate.cs</LastGenOutput>
@@ -140,6 +160,31 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>FunctionsInterfaceTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\Microservice\AppSettingsTemplate\AppSettingsMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AppSettingsMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.cs">
+        <DependentUpon>ControllerMainTemplate.tt</DependentUpon>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Update="CodeGeneration\Microservice\LaunchSettingsTemplate\LaunchSettingsMainTemplate.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LaunchSettingsMainTemplate.tt</DependentUpon>
+      </Compile>
+      <Compile Update="CodeGeneration\Microservice\ProgramTemplate\ProgramMainTemplate.cs">
+        <DependentUpon>ProgramMainTemplate.tt</DependentUpon>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+      </Compile>
+      <Compile Update="CodeGeneration\Microservice\ProjectTemplate\MicroserviceProjectMainTemplate.cs">
+        <DependentUpon>MicroserviceProjectMainTemplate.tt</DependentUpon>
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
       </Compile>
       <Compile Update="CodeGeneration\RelationTemplate\RelationHelperTemplate.cs">
         <DesignTime>True</DesignTime>
