@@ -29,9 +29,14 @@ using System;
         public ActionResult<<#= QvtCodeGeneratorStrings.FirstEnforceType(relation) #>> Transfrom<#= relation.Name #>([FromBody] <#= QvtCodeGeneratorStrings.FirstCheckOnlyType(relation) #> input)
         {
             ActionResult<<#= QvtCodeGeneratorStrings.FirstEnforceType(relation) #>> result = BadRequest();
-
+            
             try
             {
+                if(input == null)
+                {
+                    throw new ArgumentNullException("Invalid input data. Data could not be parsed.");
+                }
+
                 <#=QvtCodeGeneratorStrings.TransformationName(Transformation) #> transformation = new <#=QvtCodeGeneratorStrings.TransformationName(Transformation) #>();
 
                 <#= QvtCodeGeneratorStrings.FirstEnforceType(relation) #> output = new <#= QvtCodeGeneratorStrings.FirstEnforceType(relation) #>();
@@ -44,7 +49,7 @@ using System;
             {
                 result = BadRequest(exception);
             }
-
+            
             return result;
         }
 <#
