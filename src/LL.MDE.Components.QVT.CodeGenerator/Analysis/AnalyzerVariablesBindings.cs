@@ -71,22 +71,30 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.Analysis
                     else if (propertyTemplateItem.Value is IVariableExp)
                     {
                         IVariableExp casted = (IVariableExp)propertyTemplateItem.Value;
+
                         if (enforce)
                         {
                             if (!currentResult.IPropertyTemplateItemToVariablesRequired.ContainsKey(propertyTemplateItem))
+                            {
                                 currentResult.IPropertyTemplateItemToVariablesRequired[propertyTemplateItem] = new HashSet<IVariable>();
+                            }
+
                             currentResult.IPropertyTemplateItemToVariablesRequired[propertyTemplateItem].Add(casted.ReferredVariable);
                         }
                         else
                         {
                             currentResult.VariablesItCanBind.Add(casted.ReferredVariable);
                         }
+                        
                     }
                     else if (propertyTemplateItem.Value is CSharpOpaqueExpression)
                     {
                         CSharpOpaqueExpression casted = (CSharpOpaqueExpression)propertyTemplateItem.Value;
                         if (!currentResult.IPropertyTemplateItemToVariablesRequired.ContainsKey(propertyTemplateItem))
+                        {
                             currentResult.IPropertyTemplateItemToVariablesRequired[propertyTemplateItem] = new HashSet<IVariable>();
+                        }
+                            
                         currentResult.IPropertyTemplateItemToVariablesRequired[propertyTemplateItem].UnionWith(casted.BindsTo);
                     }
                 }
