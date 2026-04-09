@@ -16,6 +16,7 @@ using LL.MDE.Components.Qvt.CodeGenerator.Utils;
 
 using NMF.Utilities;
 using System.Diagnostics;
+using LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EssentialOCLExtensions;
 
 namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
 {
@@ -28,7 +29,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 .Where(domain => domain.IsEnforceable.GetValueOrDefault() == enforce
                             || !domain.IsEnforceable.GetValueOrDefault() == checkonly
                             || (domain.TypedModel == null) == primitive).Select(d => d.RootVariable).ToList();
-            
+
             outBindedVariables?.UnionWith(new HashSet<IVariable>(variables));
 
             string result = string.Empty;
@@ -39,7 +40,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             {
                 string variableString = string.Empty;
 
-                if(withMetaAttributes)
+                if (withMetaAttributes)
                 {
                     if (relation.Domain.Cast<RelationDomain>().Any(domain => domain.TypedModel == null && domain.RootVariable == variable))
                     {
@@ -53,15 +54,15 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                     {
                         variableString += "[QvtCheckOnlyParameter] ";
                     }
-                    
+
                 }
                 if (withTypes)
                 {
                     variableString += variable.Type.GetRealTypeName() + " ";
                 }
-                
+
                 variableString += variable.Name;
-                
+
                 variableStrings.Add(variableString);
             }
 
@@ -87,11 +88,11 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             return GetSpacesFromTabs(indentTabs) + bindedVariable.Type.GetRealTypeName() + " " + bindedVariable.Name + " = (" + bindedVariable.Type.GetRealTypeName() + ")" + prop.ObjContainer.BindsTo.Name + "." + prop.ReferredProperty.Name + ";";
         }
 
-        public static string GenerateDomainCheckMethodContent(IRelationDomain sourceDomain, 
-                                                              ISet<IVariable> variablesBindedSoFar, 
-                                                              DomainVariablesBindingsResult analysis, 
-                                                              List<IObjectTemplateExp> remaining = null, 
-                                                              StringBuilder stringBuilder = null, 
+        public static string GenerateDomainCheckMethodContent(IRelationDomain sourceDomain,
+                                                              ISet<IVariable> variablesBindedSoFar,
+                                                              DomainVariablesBindingsResult analysis,
+                                                              List<IObjectTemplateExp> remaining = null,
+                                                              StringBuilder stringBuilder = null,
                                                               ISet<IPropertyTemplateItem> postPonedPropertiesToCheck = null,
                                                               int indentTabs = 3)
         {
@@ -133,9 +134,9 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                     if (bindedVariable != null && !variablesBindedSoFar.Contains(bindedVariable))
                     {
                         managedProps.Add(nonManyProp);
-                        
+
                         stringBuilder.AppendLine(GenerateBindingFreeNonMany(nonManyProp, bindedVariable, indentTabs: indentTabs + indentOffset));
-                        
+
                         variablesBindedSoFar.Add(bindedVariable);
                     }
                 }
@@ -143,15 +144,15 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 // We compute the checks that we can do right now, and the ones that must be post poned because their variables are not binded yet
                 // For now we only do checks on single value properties, the many valued one are simply exhaustively explored/binded later
                 IEnumerable<IPropertyTemplateItem> candidatesInit = current.Part.Where(prop => !prop.ReferredProperty.isMany() && (prop.Value is CSharpOpaqueExpression || prop.Value is IVariableExp));
-                
+
                 ISet<IPropertyTemplateItem> candidates = new HashSet<IPropertyTemplateItem>();
-                
+
                 candidates.UnionWith(candidatesInit);
                 candidates.UnionWith(postPonedPropertiesToCheck);
                 candidates.ExceptWith(managedProps);
-                
+
                 ISet<IPropertyTemplateItem> propsToCheck = new HashSet<IPropertyTemplateItem>();
-                
+
                 foreach (IPropertyTemplateItem candidate in candidates)
                 {
                     if (!variablesBindedSoFar.IsSupersetOf(QvtModelExplorer.FindBindedVariables(candidate)))
@@ -183,7 +184,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 List<IPropertyTemplateItem> objectTemplatesManyRemaining = current.Part.Where(p => p.Value is ObjectTemplateExp && p.ReferredProperty.isMany() && remaining.Contains(p.Value)).ToList();
 
                 int loopIndent = 0;
-                
+
                 foreach (IPropertyTemplateItem propWithTemplate in objectTemplatesManyRemaining)
                 {
                     // Generate start for each, which binds the variable associated with the object template
@@ -200,20 +201,20 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 indentOffset += loopIndent;
 
                 // recursive call
-                GenerateDomainCheckMethodContent(sourceDomain, 
-                                                 variablesBindedSoFar, 
-                                                 analysis, 
-                                                 remaining, 
-                                                 stringBuilder, 
+                GenerateDomainCheckMethodContent(sourceDomain,
+                                                 variablesBindedSoFar,
+                                                 analysis,
+                                                 remaining,
+                                                 stringBuilder,
                                                  postPonedPropertiesToCheck,
                                                  indentTabs: indentTabs + indentOffset);
 
-                
+
                 indentOffset--;
 
                 foreach (IPropertyTemplateItem _ in objectTemplatesManyRemaining)
                 {
-                    
+
                     // Generate end brace for foreach-loops
                     stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs + indentOffset) + "}");
                     indentOffset--;
@@ -222,15 +223,15 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
 
                 // Generate end if checks all c# expressions
                 if (propsToCheck.Count > 0)
-                { 
-                    
+                {
+
                     stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs + indentOffset) + "}");
                     indentOffset--;
 
                 }
 
                 // End conditional on the object template
-                stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs + indentOffset ) + "}");
+                stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs + indentOffset) + "}");
             }
             // Recusrion anchor: We stop the recursion if there are no more object templates to manage
             else
@@ -249,7 +250,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 }
                 indentOffset--;
 
-                stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs + indentOffset) +"};");
+                stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs + indentOffset) + "};");
                 stringBuilder.AppendLine();
                 stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs + indentOffset) + "result.Add(match);");
             }
@@ -260,7 +261,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
         private static string GetSpacesFromTabs(int tabs)
         {
             string result = "";
-            for(int counter = 0; counter < tabs * 4; counter++)
+            for (int counter = 0; counter < tabs * 4; counter++)
             {
                 result += " ";
             }
@@ -268,18 +269,19 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             return result;
         }
 
-        public static string GenerateExtractVariablesFromMatch(DomainVariablesBindingsResult domainAnalysisResult, 
-                                                               ISet<IVariable> variablesAlreadyBinded, 
-                                                               string bindingsContainer, 
+        public static string GenerateExtractVariablesFromMatch(DomainVariablesBindingsResult domainAnalysisResult,
+                                                               ISet<IVariable> variablesAlreadyBinded,
+                                                               string bindingsContainer,
                                                                bool onlyNonPrimitive = false,
                                                                int indentTabs = 3)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (IVariable variable in domainAnalysisResult.VariablesItCanBind.Where(v => !variablesAlreadyBinded.Contains(v) && (!onlyNonPrimitive || !(v.Type is IPrimitiveType))))
+            foreach (IVariable variable in domainAnalysisResult.VariablesItCanBind.Where(v => !variablesAlreadyBinded.Contains(v) && (!onlyNonPrimitive || (!(v.Type is IPrimitiveType) && !(v.Type is IStruct)) ) ))
             {
-
                 //stringBuilder.AppendLine("// variable " + variable.Name);
                 stringBuilder.AppendLine(GetSpacesFromTabs(indentTabs) + variable.Type.GetRealTypeName() + " " + variable.Name + " = " + bindingsContainer + "." + variable.Name + ";");
+
+
                 variablesAlreadyBinded.Add(variable);
             }
 
@@ -465,7 +467,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 IList<IList<IPropertyTemplateItem>> propertyPathsRelationKey = relationKey != null ? FindKeyApplicablePropertyPaths(objectTemplateExpression, relationKey) : null;
 
                 // We always start by creating the empty variable that will contain the object
-                sb.AppendLine(objectTemplateExpression.BindsTo.Type.GetRealTypeName() + " " + objectTemplateExpression.BindsTo.Name + " = null;");
+                sb.AppendLine(objectTemplateExpression.BindsTo.Type.GetRealTypeName() + " " + objectTemplateExpression.BindsTo.Name + " = default;");
 
                 int nbBracketsOpened = 0;
 
@@ -529,7 +531,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                     // In the end we generate a test if we found a candidate
                     sb.AppendLine("// If the object still doesn't exist, we create it");
                     sb.AppendLine("else {");
-                    nbBracketsOpened ++;
+                    nbBracketsOpened++;
                 }
 
                 // In any case, we generate the code to create the object, even if it might end in the conditional due to the keys test
@@ -640,6 +642,11 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             {
                 Assignment assignment = (Assignment)expression;
                 return assignment.AssignedVariable.Type.GetRealTypeName() + " " + assignment.AssignedVariable.Name + " = " + GenerateExpression(assignment.Value, useMetamodelInterface);
+            }
+            if (expression is ObjectAssignment)
+            {
+                ObjectAssignment assignment = (ObjectAssignment)expression;
+                return assignment.LeftSideVariable.Name + " = " + assignment.RightSideVariable.Name + ";";
             }
             if (expression is IRelationCallExp)
             {

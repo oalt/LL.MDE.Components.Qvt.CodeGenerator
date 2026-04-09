@@ -6,11 +6,12 @@
 <#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>
 <#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate" #>
 <#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.Utils" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EssentialOCLExtensions" #>
 <#@ import namespace="NMF.Utilities" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EssentialOCL" #>
-<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
+<#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #> 
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #>
 <#@ output extension=".cs" #>
 <#+
@@ -312,6 +313,16 @@
         // Generating relation calls from where clause
         if (relation.Where != null)
         {
+            // generate object assignments
+            foreach (ObjectAssignment assignment in relation.Where.Predicate.Select(p => p.ConditionExpression).OfType<ObjectAssignment>())
+            {
+#>
+
+                <#= assignment.LeftSideVariable.Name #> = <#= assignment.RightSideVariable.Name #>;
+
+<#+
+
+            }
 #> 
                 // Calling other relations as defined in the where clause
 <#+
