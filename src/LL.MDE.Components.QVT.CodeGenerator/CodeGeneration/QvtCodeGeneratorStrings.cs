@@ -33,6 +33,11 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration
             return "MDD4All.QVT.Transformations." + transformation.Name + ".Configuration";
         }
 
+        public static string MicroserviceProjectName(ITransformation transformation)
+        {
+            return "MDD4All.QVT.Transformations." + transformation.Name + ".Microservice"; ;
+        }
+
         public static string DataModelExtensionsProjectName()
         {
             return "DataModelExtensions";

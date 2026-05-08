@@ -21,7 +21,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.Microservice
             _transformation = transformation;
             _outputFolderAbsolute = outputFolderAbsolute;
 
-            _microserviceProjectName = "MDD4All.QVT.Transformations." + transformation.Name + ".Microservice";
+            _microserviceProjectName = QvtCodeGeneratorStrings.MicroserviceProjectName(transformation);
         }
 
         public void GenerateMicroservice()
