@@ -7,6 +7,7 @@
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.EMOF" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.CustomExtensions.EMOFExtensions" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ExtensionMethods" #>
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
@@ -20,6 +21,14 @@
     <ProjectReference Include="..\DataModelExtensions\DataModelExtensions.csproj" />
     <ProjectReference Include="..\MDD4All.QVT.DataAccess.Default\src\MDD4All.QVT.DataAccess.Default\MDD4All.QVT.DataAccess.Default-dev.csproj" />
     <ProjectReference <#= "Include=\"..\\" + QvtCodeGeneratorStrings.ConfigurationProjectName(Transformation) + "\\" + QvtCodeGeneratorStrings.ConfigurationProjectName(Transformation) + ".csproj" + "\"" #> />
+<# 
+    if(Transformation.EnforceToEA())
+    {
+#>
+    <ProjectReference Include="..\MDD4All.QVT.EaAccess\src\MDD4All.QVT.EaAccess\MDD4All.QVT.EaAccess-dev.csproj" />
+<#
+    }
+#>
   </ItemGroup>
 
   <ItemGroup>

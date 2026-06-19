@@ -26,8 +26,15 @@ namespace <#= QvtCodeGeneratorStrings.TransformationProjectName(Transformation) 
         {
             TransformationName = "<#= Transformation.Name #>";
 <#
+    string transformationGUID = Transformation.GetTag("GUID")?.Value;
     IRelation relation = Transformation.Rule.OfType<IRelation>().First(rel => rel.IsTopLevel.GetValueOrDefault(false));
-#>            
+    if(transformationGUID != null)
+    {
+#>
+            GUID = "<#= transformationGUID #>";
+<#
+    }
+#>
             TopRelationName = "<#= relation.Name #>";
 
             TransformationStarter = new TransformationStarter(this);
@@ -47,6 +54,13 @@ namespace <#= QvtCodeGeneratorStrings.TransformationProjectName(Transformation) 
             {
                 Name = "<#= relationDomain.RootVariable.Name #>",
 <#
+        string domainGUID = relationDomain.GetTag("GUID")?.Value;
+        if(domainGUID != null)
+        {
+#>
+                GUID = "<#= domainGUID #>",
+<#
+        }
         if(relationDomain.IsEnforceable != null && relationDomain.IsEnforceable == true)
         {
 #>

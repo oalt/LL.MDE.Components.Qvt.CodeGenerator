@@ -8,6 +8,7 @@
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTBase" #>
 <#@ import namespace="LL.MDE.Components.Qvt.Metamodel.QVTRelation" #>
 <#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration" #>
+<#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ExtensionMethods" #>
 <#@ import namespace="LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate" #>
 <#@ import namespace="NMF.Utilities" #>
 <#@ import namespace="System.Linq" #>
@@ -15,7 +16,14 @@
 <#@ output extension=".cs" #>
 // generated code
 using LL.MDE.Components.Qvt.Common;
-
+<# 
+    if(Transformation.EnforceToEA())
+    {
+#>
+using MDD4All.QVT.EaAccess;
+<#
+    }
+#>
 <#= QvtCodeGeneratorStrings.Namespace(Transformation) #> 
 {
     public class TransformationStarter : AbstractTransformationStarter
@@ -26,9 +34,21 @@ using LL.MDE.Components.Qvt.Common;
 
         public override void StartTransformation()
         {
-            ReflectiveMetamodelInterface reflectiveMetamodelInterface = new ReflectiveMetamodelInterface();
-
-            <#=QvtCodeGeneratorStrings.TransformationName(Transformation) #> transformation = new <#=QvtCodeGeneratorStrings.TransformationName(Transformation) #>(reflectiveMetamodelInterface);
+<#
+    if(Transformation.EnforceToEA())
+    {
+#>
+            EaMetaModelInterface metamodelInterface = new EaMetaModelInterface();
+<#
+    }
+    else
+    {
+#>
+            ReflectiveMetamodelInterface metamodelInterface = new ReflectiveMetamodelInterface();
+<#
+    }
+#>
+            <#=QvtCodeGeneratorStrings.TransformationName(Transformation) #> transformation = new <#=QvtCodeGeneratorStrings.TransformationName(Transformation) #>(metamodelInterface);
 
 
 <# 

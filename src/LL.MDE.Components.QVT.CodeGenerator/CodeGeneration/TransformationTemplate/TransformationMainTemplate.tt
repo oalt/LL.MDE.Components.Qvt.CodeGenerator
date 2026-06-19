@@ -102,9 +102,23 @@ using LL.MDE.Components.Qvt.Common.Attributes;
            
         }
 
-        public <#=QvtCodeGeneratorStrings.TransformationName(transformation) #>(<#=nameof(IMetaModelInterface) #> editor<#= hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : "" #>) : this()
+        public <#=QvtCodeGeneratorStrings.TransformationName(transformation) #>(<#=nameof(IMetaModelInterface) #> editor<#= hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : "" #>)
         {
             this.editor = editor;
+<# 
+        foreach (IRelation relation in transformation.Rule.OfType<IRelation>())
+        {
+#>
+            this.<#= QvtCodeGeneratorStrings.RelationClassName(relation) #> = new <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>(editor, this); 
+<#
+            if (hasFunctions)
+            {
+#>
+        this.Functions = Functions;
+<#
+            }
+        }
+#>
         }
 
 <# 
