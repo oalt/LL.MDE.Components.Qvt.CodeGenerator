@@ -19,7 +19,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ConfigurationProjec
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\ConfigurationProjectTemplate\ConfigurationProjectMainTemplate.tt"
+    #line 1 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\ConfigurationProjectTemplate\ConfigurationProjectMainTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class ConfigurationProjectMainTemplate : ConfigurationProjectMainTemplateBase
     {
@@ -33,6 +33,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.ConfigurationProjec
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <Platforms>AnyCPU;x86</Platforms>
     </PropertyGroup>
 
     <ItemGroup>

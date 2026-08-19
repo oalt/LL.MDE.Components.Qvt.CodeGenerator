@@ -23,7 +23,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+    #line 1 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class TransformationProjectMainTemplate : TransformationProjectMainTemplateBase
     {
@@ -39,6 +39,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
     <TargetFramework>netstandard2.0</TargetFramework>
     <Nullable>enable</Nullable>
     <LangVersion>10</LangVersion>
+    <Platforms>AnyCPU;x86</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
@@ -47,14 +48,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
     <ProjectReference Include=""..\MDD4All.QVT.DataAccess.Default\src\MDD4All.QVT.DataAccess.Default\MDD4All.QVT.DataAccess.Default-dev.csproj"" />
     <ProjectReference ");
             
-            #line 23 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 24 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture("Include=\"..\\" + QvtCodeGeneratorStrings.ConfigurationProjectName(Transformation) + "\\" + QvtCodeGeneratorStrings.ConfigurationProjectName(Transformation) + ".csproj" + "\""));
             
             #line default
             #line hidden
             this.Write(" />\r\n");
             
-            #line 24 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 25 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
  
     if(Transformation.EnforceToEA())
     {
@@ -65,7 +66,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
             this.Write("    <ProjectReference Include=\"..\\MDD4All.QVT.EaAccess\\src\\MDD4All.QVT.EaAccess\\M" +
                     "DD4All.QVT.EaAccess-dev.csproj\" />\r\n");
             
-            #line 29 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 30 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
 
     }
 
@@ -74,7 +75,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
             #line hidden
             this.Write("  </ItemGroup>\r\n\r\n  <ItemGroup>\r\n");
             
-            #line 35 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 36 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
 
     foreach(IPackage mmPackage in Transformation.GetMetaModelPackagesForTransformation())
     {
@@ -94,14 +95,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
             #line hidden
             this.Write("    <ProjectReference ");
             
-            #line 49 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 50 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture("Include=\"..\\" + name + "\\src\\" + name + "\\" + name + "-dev.csproj" + "\""));
             
             #line default
             #line hidden
             this.Write(" />\r\n");
             
-            #line 50 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 51 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
 
             }
             else if(type == "Package")
@@ -112,21 +113,21 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
             #line hidden
             this.Write("    <PackageReference Include=\"");
             
-            #line 55 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 56 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(packageName));
             
             #line default
             #line hidden
             this.Write("\" Version=\"");
             
-            #line 55 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 56 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(version));
             
             #line default
             #line hidden
             this.Write("\" />\r\n");
             
-            #line 56 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 57 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
 
             }
             else if(type == "File")
@@ -137,14 +138,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
             #line hidden
             this.Write("    <Reference Include=\"");
             
-            #line 61 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 62 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(name));
             
             #line default
             #line hidden
             this.Write("\">\r\n        <HintPath>");
             
-            #line 62 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 63 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture("..\\libs\\"+  packageName + ".dll"));
             
             #line default
@@ -152,7 +153,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationProje
             this.Write("</HintPath>\r\n        <EmbedInteropTypes>false</EmbedInteropTypes>\r\n    </Referenc" +
                     "e>\r\n");
             
-            #line 65 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
+            #line 66 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationProjectTemplate\TransformationProjectMainTemplate.tt"
 
             }
         }

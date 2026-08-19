@@ -19,7 +19,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceProjec
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.tt"
+    #line 1 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "17.0.0.0")]
     public partial class UserInterfaceProjectMainTemplate : UserInterfaceProjectMainTemplateBase
     {
@@ -37,12 +37,13 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.UserInterfaceProjec
         <Nullable>enable</Nullable>
         <ImplicitUsings>disable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <Platforms>AnyCPU;x86</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference ");
             
-            #line 18 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.tt"
+            #line 19 "C:\work\QVTCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\UserInterfaceProjectTemplate\UserInterfaceProjectMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture("Include=\"..\\" + QvtCodeGeneratorStrings.TransformationProjectName(Transformation) + "\\" + QvtCodeGeneratorStrings.TransformationProjectName(Transformation) + ".csproj" + "\""));
             
             #line default
