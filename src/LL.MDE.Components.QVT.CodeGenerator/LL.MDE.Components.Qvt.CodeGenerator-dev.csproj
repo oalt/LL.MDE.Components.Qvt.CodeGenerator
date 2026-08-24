@@ -31,7 +31,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\LL.MDE.Components.Qvt.Common\src\LL.MDE.Components.Qvt.Common-dev.csproj" />
-      <ProjectReference Include="..\..\..\LL.MDE.Components.Qvt.Metamodel\LL.MDE.Components.Qvt.Metamodel-dev.csproj" />
+      <ProjectReference Include="..\..\..\LL.MDE.Components.Qvt.Metamodel\src\LL.MDE.Components.Qvt.Metamodel\LL.MDE.Components.Qvt.Metamodel-dev.csproj" />
       <ProjectReference Include="..\..\..\SlnParser\src\SlnParser\SlnParser.csproj" />
     </ItemGroup>
 
