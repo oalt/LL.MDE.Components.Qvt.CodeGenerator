@@ -56,7 +56,7 @@ using MDD4All.QVT.EaAccess;
     { 
 #>
             transformation.<#= relation.Name #>(<#=  string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(
-    d => "(" + d.RootVariable.Type.GetRealTypeName() + ")TransformationDescriptor.Parameters[" + relation.Domain.IndexOf(d) + "].ParameterInstance")) #>);
+    d => "TransformationDescriptor.Parameters[" + relation.Domain.IndexOf(d) + "].ParameterInstance")) #>);
             
 <#
     } // foreach 

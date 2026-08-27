@@ -141,7 +141,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.StarterTemplate
             
             #line 58 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\StarterTemplate\StarterMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(
-    d => "(" + d.RootVariable.Type.GetRealTypeName() + ")TransformationDescriptor.Parameters[" + relation.Domain.IndexOf(d) + "].ParameterInstance"))));
+    d => "TransformationDescriptor.Parameters[" + relation.Domain.IndexOf(d) + "].ParameterInstance"))));
             
             #line default
             #line hidden

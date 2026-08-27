@@ -58,7 +58,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 }
                 if (withTypes)
                 {
-                    variableString += variable.Type.GetRealTypeName() + " ";
+                    variableString += "ParameterDescriptor ";
                 }
 
                 variableString += variable.Name;
