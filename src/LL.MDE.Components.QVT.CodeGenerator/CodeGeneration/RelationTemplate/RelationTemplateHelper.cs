@@ -58,7 +58,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                 }
                 if (withTypes)
                 {
-                    variableString += "ParameterDescriptor ";
+                    variableString += variable.Type.GetRealTypeName() + " ";
                 }
 
                 variableString += variable.Name;
@@ -73,6 +73,113 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             //return string.Join(", ", variables.Select(d => (withMetaAttributes ? "" : "") + (withTypes ? d.Type.GetRealTypeName() + " " : "") + d.Name));
         }
 
+        public static string GenerateRelationParamsForTopRelationCall(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null, bool checkonly = true, bool enforce = true, bool primitive = true, bool withMetaAttributes = false)
+        {
+            IList<IVariable> variables = relation.Domain.Cast<RelationDomain>()
+                .Where(domain => domain.IsEnforceable.GetValueOrDefault() == enforce
+                            || !domain.IsEnforceable.GetValueOrDefault() == checkonly
+                            || (domain.TypedModel == null) == primitive).Select(d => d.RootVariable).ToList();
+
+            outBindedVariables?.UnionWith(new HashSet<IVariable>(variables));
+
+            string result = string.Empty;
+
+            List<string> variableStrings = new List<string>();
+
+            foreach (IVariable variable in variables)
+            {
+                string variableString = string.Empty;
+
+                if (withMetaAttributes)
+                {
+                    if (relation.Domain.Cast<RelationDomain>().Any(domain => domain.TypedModel == null && domain.RootVariable == variable))
+                    {
+                        variableString += "[QvtPrimitiveParameter] ";
+                    }
+                    else if (relation.Domain.Cast<RelationDomain>().Any(domain => domain.IsEnforceable.GetValueOrDefault(false) && domain.RootVariable == variable))
+                    {
+                        variableString += "[QvtEnforceParameter] ";
+                    }
+                    else if (relation.Domain.Cast<RelationDomain>().Any(domain => !domain.IsEnforceable.GetValueOrDefault(false) && domain.RootVariable == variable))
+                    {
+                        variableString += "[QvtCheckOnlyParameter] ";
+                    }
+
+                }
+                if (withTypes)
+                {
+                    variableString += "ParameterDescriptor ";
+                }
+
+                variableString += variable.Name + "Parameter";
+
+                variableStrings.Add(variableString);
+            }
+
+            result = string.Join(", ", variableStrings);
+
+            return result;
+
+            //return string.Join(", ", variables.Select(d => (withMetaAttributes ? "" : "") + (withTypes ? d.Type.GetRealTypeName() + " " : "") + d.Name));
+        }
+
+        public static string GenerateParameterAssignments(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null, bool checkonly = true, bool enforce = true, bool primitive = true, bool withMetaAttributes = false)
+        {
+            IList<IVariable> variables = relation.Domain.Cast<RelationDomain>()
+                .Where(domain => domain.IsEnforceable.GetValueOrDefault() == enforce
+                            || !domain.IsEnforceable.GetValueOrDefault() == checkonly
+                            || (domain.TypedModel == null) == primitive).Select(d => d.RootVariable).ToList();
+
+            outBindedVariables?.UnionWith(new HashSet<IVariable>(variables));
+
+            string result = string.Empty;
+
+            List<string> variableStrings = new List<string>();
+
+            foreach (IVariable variable in variables)
+            {
+                string variableString = string.Empty;
+
+                
+                if (withTypes)
+                {
+                    variableString += variable.Type.GetRealTypeName();
+                }
+
+                variableString += " " + variable.Name + " = (" + variable.Type.GetRealTypeName() + ")" + variable.Name + "Parameter.ParameterInstance;";
+
+                variableStrings.Add(variableString);
+            }
+
+            result = string.Join("\n            ", variableStrings);
+
+            return result;
+        }
+
+        public static string GenerateParametersToList(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null, bool checkonly = true, bool enforce = true, bool primitive = true, bool withMetaAttributes = false)
+        {
+            IList<IVariable> variables = relation.Domain.Cast<RelationDomain>()
+                .Where(domain => domain.IsEnforceable.GetValueOrDefault() == enforce
+                            || !domain.IsEnforceable.GetValueOrDefault() == checkonly
+                            || (domain.TypedModel == null) == primitive).Select(d => d.RootVariable).ToList();
+
+            outBindedVariables?.UnionWith(new HashSet<IVariable>(variables));
+
+            string result = string.Empty;
+
+            List<string> variableStrings = new List<string>();
+
+            foreach (IVariable variable in variables)
+            {
+                string variableString = "Parameters.Add(" + variable.Name + "Parameter);";
+                variableStrings.Add(variableString);
+            }
+
+            result = string.Join("\n            ", variableStrings);
+
+            return result;
+        }
+
         public static string GenerateRelationParamsCheckonly(bool withTypes, IRelation relation, ISet<IVariable> outBindedVariables = null)
         {
             return GenerateRelationParams(withTypes, relation, outBindedVariables, true, false);
@@ -83,9 +190,29 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             return GenerateRelationParams(withTypes, relation, outBindedVariables, false);
         }
 
-        public static string GenerateBindingFreeNonMany(IPropertyTemplateItem prop, IVariable bindedVariable, int indentTabs = 2)
+        public static string GenerateBindingFreeNonMany(IPropertyTemplateItem prop, IVariable bindedVariable, string domainName, int indentTabs = 2)
         {
-            return GetSpacesFromTabs(indentTabs) + bindedVariable.Type.GetRealTypeName() + " " + bindedVariable.Name + " = (" + bindedVariable.Type.GetRealTypeName() + ")" + prop.ObjContainer.BindsTo.Name + "." + prop.ReferredProperty.Name + ";";
+            string result = string.Empty;
+            result += GetSpacesFromTabs(indentTabs) + bindedVariable.Type.GetRealTypeName() + " " + bindedVariable.Name + " = (" + bindedVariable.Type.GetRealTypeName() + ")" + prop.ObjContainer.BindsTo.Name + ".";
+            
+            if (prop.ReferredProperty.Name.Contains("("))
+            {
+                string propertyName = prop.ReferredProperty.Name;
+                int index = propertyName.IndexOf("(");
+                int domainIndex;
+                if(int.TryParse(domainName, out domainIndex))
+                {
+                    domainIndex--;
+                    propertyName = propertyName.Insert(index + 1, "transformation.Parameters[" + domainIndex + "].RepositoryInstance");
+                    result += propertyName + ";";
+                }
+            }
+            else
+            {
+                result += prop.ReferredProperty.Name + ";";
+            }
+
+            return result;
         }
 
         public static string GenerateDomainCheckMethodContent(IRelationDomain sourceDomain,
@@ -135,7 +262,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                     {
                         managedProps.Add(nonManyProp);
 
-                        stringBuilder.AppendLine(GenerateBindingFreeNonMany(nonManyProp, bindedVariable, indentTabs: indentTabs + indentOffset));
+                        stringBuilder.AppendLine(GenerateBindingFreeNonMany(nonManyProp, bindedVariable, sourceDomain.Name, indentTabs: indentTabs + indentOffset));
 
                         variablesBindedSoFar.Add(bindedVariable);
                     }

@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using LL.MDE.Components.Qvt.Common;
 using LL.MDE.Components.Qvt.Common.Attributes;
+using LL.MDE.Components.Qvt.Common.DataModels;
 <#
     // Small hack to bypass limitation of ForTea plugin ( https://github.com/MrJul/ForTea/issues/3 )
     // We redeclare members so that ForTea finds them, and enables code completion etc. 
@@ -47,6 +48,7 @@ using LL.MDE.Components.Qvt.Common.Attributes;
     public class <#=QvtCodeGeneratorStrings.TransformationName(transformation) #> : GeneratedTransformation
     {
         private readonly <#=nameof(IMetaModelInterface) #> editor;
+        public List<ParameterDescriptor> Parameters;
 <#
 
     bool hasFunctions = !transformation.OwnedOperation.IsNullOrEmpty();
@@ -127,8 +129,14 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
 {
 #>
         [QvtTopRelationCall]
-        public void <#= relation.Name #>(<#=RelationTemplateHelper.GenerateRelationParams(true, relation, withMetaAttributes: true)#>) 
+        public void <#= relation.Name #>(<#=RelationTemplateHelper.GenerateRelationParamsForTopRelationCall(true, relation, withMetaAttributes: true)#>) 
         {
+            Parameters = new List<ParameterDescriptor>();
+            <#=RelationTemplateHelper.GenerateParametersToList(true, relation, withMetaAttributes: true)#>
+
+
+            <#=RelationTemplateHelper.GenerateParameterAssignments(true, relation, withMetaAttributes: true)#>
+
             <#= QvtCodeGeneratorStrings.RelationClassName(relation) #>.CheckAndEnforce(<#=RelationTemplateHelper.GenerateRelationParams(false, relation) #>);
         }
 
@@ -147,7 +155,7 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
 #>
                 case "<#= relation.Name #>":
                     <#= relation.Name #>(<#=  string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(
-    d => "(" + d.RootVariable.Type.GetRealTypeName() + ")parameters[" + relation.Domain.IndexOf(d) + "]")) #>);
+    d => "(ParameterDescriptor)parameters[" + relation.Domain.IndexOf(d) + "]")) #>);
                     break;
 <#
     } // foreach 

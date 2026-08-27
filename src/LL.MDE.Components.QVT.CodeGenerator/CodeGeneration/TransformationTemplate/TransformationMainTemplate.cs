@@ -40,9 +40,9 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
         {
             this.Write("// generated code\r\nusing System;\r\nusing System.Collections.Generic; \r\nusing Syste" +
                     "m.Linq;\r\nusing LL.MDE.Components.Qvt.Common;\r\nusing LL.MDE.Components.Qvt.Common" +
-                    ".Attributes;\r\n");
+                    ".Attributes;\r\nusing LL.MDE.Components.Qvt.Common.DataModels;\r\n");
             
-            #line 22 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 23 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
     // Small hack to bypass limitation of ForTea plugin ( https://github.com/MrJul/ForTea/issues/3 )
     // We redeclare members so that ForTea finds them, and enables code completion etc. 
@@ -60,14 +60,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("//using ");
             
-            #line 34 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 35 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(package.Name));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 35 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 36 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
     } // foreach
  
@@ -78,14 +78,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write(" \r\n");
             
-            #line 40 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 41 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.Namespace(transformation)));
             
             #line default
             #line hidden
             this.Write(" \r\n{ \r\n\r\n");
             
-            #line 43 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 44 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
  
     // Generation of the Transfo class 
 
@@ -94,21 +94,21 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("    [QvtTransformation]\r\n    public class ");
             
-            #line 47 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 48 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(transformation)));
             
             #line default
             #line hidden
             this.Write(" : GeneratedTransformation\r\n    {\r\n        private readonly ");
             
-            #line 49 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 50 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(nameof(IMetaModelInterface)));
             
             #line default
             #line hidden
-            this.Write(" editor;\r\n");
+            this.Write(" editor;\r\n        public List<ParameterDescriptor> Parameters;\r\n");
             
-            #line 50 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 52 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
 
     bool hasFunctions = !transformation.OwnedOperation.IsNullOrEmpty();
@@ -121,14 +121,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("         public readonly ");
             
-            #line 57 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 59 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation)));
             
             #line default
             #line hidden
             this.Write(" Functions;\r\n\r\n");
             
-            #line 59 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 61 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
     } // if
 
@@ -141,21 +141,21 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("        public readonly ");
             
-            #line 66 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 68 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 66 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 68 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write(";\r\n        \r\n");
             
-            #line 68 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 70 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
     } // foraech
 
@@ -172,42 +172,42 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("        internal readonly Dictionary<Tuple<");
             
-            #line 79 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 81 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tupleTypes));
             
             #line default
             #line hidden
             this.Write(">, ");
             
-            #line 79 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 81 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(key.Identifies.GetRealTypeName()));
             
             #line default
             #line hidden
             this.Write("> ");
             
-            #line 79 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 81 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.KeyDictionnaryName(key)));
             
             #line default
             #line hidden
             this.Write(" = new Dictionary<Tuple<");
             
-            #line 79 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 81 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(tupleTypes));
             
             #line default
             #line hidden
             this.Write(">, ");
             
-            #line 79 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 81 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(key.Identifies.GetRealTypeName()));
             
             #line default
             #line hidden
             this.Write(">();\r\n");
             
-            #line 80 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 82 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
     } // foreach
 
@@ -218,14 +218,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("        public ");
             
-            #line 85 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 87 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(transformation)));
             
             #line default
             #line hidden
             this.Write("()\r\n        {\r\n            this.editor = new ReflectiveMetamodelInterface();\r\n");
             
-            #line 88 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 90 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
  
         foreach (IRelation relation in transformation.Rule.OfType<IRelation>())
         {
@@ -235,21 +235,21 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("            this.");
             
-            #line 92 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 94 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 92 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 94 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write("(editor, this); \r\n");
             
-            #line 93 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 95 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
             if (hasFunctions)
             {
@@ -259,7 +259,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("        this.Functions = Functions;\r\n");
             
-            #line 98 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 100 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
             }
         }
@@ -269,28 +269,28 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("           \r\n        }\r\n\r\n        public ");
             
-            #line 105 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 107 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(transformation)));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 105 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 107 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(nameof(IMetaModelInterface)));
             
             #line default
             #line hidden
             this.Write(" editor");
             
-            #line 105 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 107 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(hasFunctions ? ", "+ QvtCodeGeneratorStrings.FunctionsInterfaceName(transformation) +" Functions" : ""));
             
             #line default
             #line hidden
             this.Write(")\r\n        {\r\n            this.editor = editor;\r\n");
             
-            #line 108 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 110 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
  
         foreach (IRelation relation in transformation.Rule.OfType<IRelation>())
         {
@@ -300,21 +300,21 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("            this.");
             
-            #line 112 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 114 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write(" = new ");
             
-            #line 112 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 114 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write("(editor, this); \r\n");
             
-            #line 113 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 115 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
             if (hasFunctions)
             {
@@ -324,7 +324,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("        this.Functions = Functions;\r\n");
             
-            #line 118 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 120 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
             }
         }
@@ -334,7 +334,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.TransformationTempl
             #line hidden
             this.Write("        }\r\n\r\n");
             
-            #line 124 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 126 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
  
 
 foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
@@ -345,35 +345,50 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
             #line hidden
             this.Write("        [QvtTopRelationCall]\r\n        public void ");
             
-            #line 130 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 132 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 130 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(RelationTemplateHelper.GenerateRelationParams(true, relation, withMetaAttributes: true)));
+            #line 132 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(RelationTemplateHelper.GenerateRelationParamsForTopRelationCall(true, relation, withMetaAttributes: true)));
             
             #line default
             #line hidden
-            this.Write(") \r\n        {\r\n\r\n            ");
+            this.Write(") \r\n        {\r\n            Parameters = new List<ParameterDescriptor>();\r\n       " +
+                    "     ");
             
-            #line 133 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 135 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(RelationTemplateHelper.GenerateParametersToList(true, relation, withMetaAttributes: true)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\r\n\r\n            ");
+            
+            #line 138 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(RelationTemplateHelper.GenerateParameterAssignments(true, relation, withMetaAttributes: true)));
+            
+            #line default
+            #line hidden
+            this.Write("\r\n\r\n            ");
+            
+            #line 140 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write(".CheckAndEnforce(");
             
-            #line 133 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 140 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(RelationTemplateHelper.GenerateRelationParams(false, relation)));
             
             #line default
             #line hidden
             this.Write(");\r\n        }\r\n\r\n");
             
-            #line 136 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 143 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
 }
 
@@ -385,7 +400,7 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
             this.Write("        public override void CallTopRelation(string topRelationName, List<object>" +
                     " parameters)\r\n        {\r\n            switch (topRelationName)\r\n\t\t    {\r\n");
             
-            #line 145 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 152 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
  
     foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
     {
@@ -395,21 +410,21 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
             #line hidden
             this.Write("                case \"");
             
-            #line 149 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 156 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
             
             #line default
             #line hidden
             this.Write("\":\r\n                    ");
             
-            #line 150 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 157 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 150 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 157 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(string.Join(", ", relation.Domain.OfType<IRelationDomain>().Select(
     d => "(ParameterDescriptor)parameters[" + relation.Domain.IndexOf(d) + "]"))));
             
@@ -417,7 +432,7 @@ foreach (IRelation relation in transformation.Rule.OfType<IRelation>().Where(r =
             #line hidden
             this.Write(");\r\n                    break;\r\n");
             
-            #line 153 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
+            #line 160 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\TransformationTemplate\TransformationMainTemplate.tt"
 
     } // foreach 
 

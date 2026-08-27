@@ -476,7 +476,7 @@ this.Write("        }\r\n");
         #line hidden
         
         #line 129 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationHelperTemplate.tt"
-this.Write("        // DomainCheckMethod\r\n        internal static ISet<");
+this.Write("        // DomainCheckMethod\r\n        internal ISet<");
 
         
         #line default
@@ -1453,7 +1453,7 @@ this.Write("            }\r\n        }\r\n");
         #line hidden
         
         #line 350 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationHelperTemplate.tt"
-this.Write("        internal static ISet<");
+this.Write("        internal ISet<");
 
         
         #line default

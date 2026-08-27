@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using LL.MDE.Components.Qvt.Common;
+using LL.MDE.Components.Qvt.Common.DataModels;
 <#
     // Generating of the "usings", for each package of each metamodel used in the transformation
     foreach (IPackage package in relation.Transformation.ModelParameter.Select(p => p.UsedPackage).SelectMany(i => i).Distinct())
@@ -31,7 +32,7 @@ using DataModelExtensions.<#= package.GetNamespace() #>;
 
 <#= QvtCodeGeneratorStrings.Namespace(relation.Transformation) #>
 {
-<# 
+<#
     // Generation of the Relation class
 #>
     public class <#=QvtCodeGeneratorStrings.RelationClassName(relation) #>

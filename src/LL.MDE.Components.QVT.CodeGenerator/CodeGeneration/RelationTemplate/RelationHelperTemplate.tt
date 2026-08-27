@@ -128,7 +128,7 @@
 	    ISet<IVariable> bindedSoFar = new HashSet<IVariable>();
 #>
         // DomainCheckMethod
-        internal static ISet<<#=QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>> <#= QvtCodeGeneratorStrings.CheckDomainMethodName(domain) #>(<#=domain.RootVariable.Type.GetRealTypeName() #> <#= domain.RootVariable.Name #>)
+        internal ISet<<#=QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>> <#= QvtCodeGeneratorStrings.CheckDomainMethodName(domain) #>(<#=domain.RootVariable.Type.GetRealTypeName() #> <#= domain.RootVariable.Name #>)
         {
             ISet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>> result = new HashSet<<#= QvtCodeGeneratorStrings.MatchDomainClassName(domain) #>>();
 
@@ -348,7 +348,7 @@
 
 	    // Check method declaration
 #>
-        internal static ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> <#= QvtCodeGeneratorStrings.CheckMethodName() #>(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(true, relation, bindedSoFar) #>)
+        internal ISet<<#= QvtCodeGeneratorStrings.CheckResultClassName(relation) #>> <#= QvtCodeGeneratorStrings.CheckMethodName() #>(<#= RelationTemplateHelper.GenerateRelationParamsCheckonly(true, relation, bindedSoFar) #>)
         {
 <#+
             // result return value

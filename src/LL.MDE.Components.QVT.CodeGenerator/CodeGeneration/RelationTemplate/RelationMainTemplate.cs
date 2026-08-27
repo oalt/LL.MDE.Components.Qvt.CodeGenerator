@@ -42,9 +42,10 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
         {
             this.Write(" \r\n");
             this.Write("\r\n// generated code \r\nusing System;\r\nusing System.Collections.Generic;\r\nusing Sys" +
-                    "tem.Linq;\r\nusing LL.MDE.Components.Qvt.Common;\r\n");
+                    "tem.Linq;\r\nusing LL.MDE.Components.Qvt.Common;\r\nusing LL.MDE.Components.Qvt.Comm" +
+                    "on.DataModels;\r\n");
             
-            #line 20 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 21 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
     // Generating of the "usings", for each package of each metamodel used in the transformation
     foreach (IPackage package in relation.Transformation.ModelParameter.Select(p => p.UsedPackage).SelectMany(i => i).Distinct())
@@ -55,14 +56,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("using DataModelExtensions.");
             
-            #line 25 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 26 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(package.GetNamespace()));
             
             #line default
             #line hidden
             this.Write(";\r\n");
             
-            #line 26 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 27 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
     } // foreach
     
@@ -73,15 +74,15 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("\r\n");
             
-            #line 32 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 33 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.Namespace(relation.Transformation)));
             
             #line default
             #line hidden
             this.Write("\r\n{\r\n");
             
-            #line 34 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
- 
+            #line 35 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+
     // Generation of the Relation class
 
             
@@ -89,14 +90,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("    public class ");
             
-            #line 37 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 38 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write("\r\n    {\r\n");
             
-            #line 39 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 40 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
 	if (useMetamodelInterface)
 	{
@@ -106,14 +107,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("        private readonly ");
             
-            #line 43 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 44 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(nameof(IMetaModelInterface)));
             
             #line default
             #line hidden
             this.Write(" editor;\r\n");
             
-            #line 44 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 45 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
   
      }
 
@@ -122,35 +123,35 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write(" \r\n        private readonly ");
             
-            #line 47 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 48 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(relation.Transformation)));
             
             #line default
             #line hidden
             this.Write(" transformation;\r\n\r\n        // Constructor\r\n\t\tpublic ");
             
-            #line 50 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 51 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.RelationClassName(relation)));
             
             #line default
             #line hidden
             this.Write("(");
             
-            #line 50 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 51 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(useMetamodelInterface ? nameof(IMetaModelInterface) + " editor," : ""));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 50 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 51 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(relation.Transformation)));
             
             #line default
             #line hidden
             this.Write(" transformation) \r\n        {\r\n");
             
-            #line 52 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 53 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
 		if (useMetamodelInterface)
 		{ 
@@ -160,7 +161,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("            this.editor = editor;\r\n");
             
-            #line 57 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 58 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
  
         } 
 
@@ -169,7 +170,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("            this.transformation = transformation;\r\n        }\r\n\r\n");
             
-            #line 63 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 64 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
 
     // Generation of the Match class specific for this relation
@@ -187,7 +188,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
                     "ns, EnforceDomains> traceabilityMap = new Dictionary<CheckOnlyDomains, EnforceDo" +
                     "mains>();\r\n\r\n");
             
-            #line 77 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 78 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
 
 
@@ -204,14 +205,14 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("        // check method for domain ");
             
-            #line 88 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 89 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(domain));
             
             #line default
             #line hidden
             this.Write("\r\n");
             
-            #line 89 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 90 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
         GenerateDomainCheckMethod(domain, analysisResult.GetResultOf(domain));
     }
@@ -224,7 +225,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.RelationTemplate
             #line hidden
             this.Write("\r\n\r\n\r\n        // Check method\r\n");
             
-            #line 100 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
+            #line 101 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationMainTemplate.tt"
 
     // Then we have an operation which will try to match the partial checks all together
     GenerateCheckMethod(relation, analysisResult);
@@ -677,7 +678,7 @@ this.Write("        }\r\n");
         #line hidden
         
         #line 129 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationHelperTemplate.tt"
-this.Write("        // DomainCheckMethod\r\n        internal static ISet<");
+this.Write("        // DomainCheckMethod\r\n        internal ISet<");
 
         
         #line default
@@ -1654,7 +1655,7 @@ this.Write("            }\r\n        }\r\n");
         #line hidden
         
         #line 350 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\RelationTemplate\RelationHelperTemplate.tt"
-this.Write("        internal static ISet<");
+this.Write("        internal ISet<");
 
         
         #line default
