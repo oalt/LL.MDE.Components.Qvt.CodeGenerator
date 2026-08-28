@@ -13,6 +13,7 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".cs" #>
+using LL.MDE.Components.Qvt.Common.DataModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
@@ -41,7 +42,17 @@ using System;
 
                 <#= QvtCodeGeneratorStrings.FirstEnforceType(relation) #> output = new <#= QvtCodeGeneratorStrings.FirstEnforceType(relation) #>();
 
-                transformation.<#= relation.Name #>(input, output);
+                ParameterDescriptor inputDescriptor = new ParameterDescriptor()
+                {
+                    ParameterInstance = input
+                };
+
+                ParameterDescriptor outputDescriptor = new ParameterDescriptor()
+                {
+                    ParameterInstance = output
+                };
+
+                transformation.<#= relation.Name #>(inputDescriptor, outputDescriptor);
 
                 result = output;
             }

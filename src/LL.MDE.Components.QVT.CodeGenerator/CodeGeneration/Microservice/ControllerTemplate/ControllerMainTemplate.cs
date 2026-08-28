@@ -38,9 +38,10 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.Microservice.Contro
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Microsoft.AspNetCore.Mvc;\r\nusing System;\r\n\r\n");
+            this.Write("using LL.MDE.Components.Qvt.Common.DataModels;\r\nusing Microsoft.AspNetCore.Mvc;\r\n" +
+                    "using System;\r\n\r\n");
             
-            #line 19 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 20 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.Namespace(Transformation)));
             
             #line default
@@ -48,7 +49,7 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.Microservice.Contro
             this.Write(".Microservice.Controllers\r\n{\r\n    [Route(\"/transformations\")]\r\n    public class T" +
                     "ransformationController : Controller\r\n    {\r\n");
             
-            #line 24 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 25 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
 
     foreach (IRelation relation in Transformation.Rule.OfType<IRelation>().Where(r => r.IsTopLevel.GetValueOrDefault(false)))
     {
@@ -58,35 +59,35 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.Microservice.Contro
             #line hidden
             this.Write("        [HttpPost(\"");
             
-            #line 28 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 29 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
             
             #line default
             #line hidden
             this.Write("\")]\r\n        public ActionResult<");
             
-            #line 29 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 30 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.FirstEnforceType(relation)));
             
             #line default
             #line hidden
             this.Write("> Transfrom");
             
-            #line 29 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 30 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
             
             #line default
             #line hidden
             this.Write("([FromBody] ");
             
-            #line 29 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 30 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.FirstCheckOnlyType(relation)));
             
             #line default
             #line hidden
             this.Write(" input)\r\n        {\r\n            ActionResult<");
             
-            #line 31 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 32 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.FirstEnforceType(relation)));
             
             #line default
@@ -102,45 +103,65 @@ namespace LL.MDE.Components.Qvt.CodeGenerator.CodeGeneration.Microservice.Contro
 
                 ");
             
-            #line 40 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 41 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(Transformation)));
             
             #line default
             #line hidden
             this.Write(" transformation = new ");
             
-            #line 40 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 41 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.TransformationName(Transformation)));
             
             #line default
             #line hidden
             this.Write("();\r\n\r\n                ");
             
-            #line 42 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 43 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.FirstEnforceType(relation)));
             
             #line default
             #line hidden
             this.Write(" output = new ");
             
-            #line 42 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 43 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(QvtCodeGeneratorStrings.FirstEnforceType(relation)));
             
             #line default
             #line hidden
-            this.Write("();\r\n\r\n                transformation.");
+            this.Write(@"();
+
+                ParameterDescriptor inputDescriptor = new ParameterDescriptor()
+                {
+                    ParameterInstance = input
+                };
+
+                ParameterDescriptor outputDescriptor = new ParameterDescriptor()
+                {
+                    ParameterInstance = output
+                };
+
+                transformation.");
             
-            #line 44 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            #line 55 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(relation.Name));
             
             #line default
             #line hidden
-            this.Write("(input, output);\r\n\r\n                result = output;\r\n            }\r\n            " +
-                    "catch(Exception exception)\r\n            {\r\n                result = BadRequest(e" +
-                    "xception);\r\n            }\r\n            \r\n            return result;\r\n        }\r\n" +
-                    "");
+            this.Write(@"(inputDescriptor, outputDescriptor);
+
+                result = output;
+            }
+            catch(Exception exception)
+            {
+                result = BadRequest(exception);
+            }
             
-            #line 55 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
+            return result;
+        }
+");
+            
+            #line 66 "C:\work\QvtCodeGenerator-dev\src\LL.MDE.Components.Qvt.CodeGenerator\src\LL.MDE.Components.QVT.CodeGenerator\CodeGeneration\Microservice\ControllerTemplate\ControllerMainTemplate.tt"
 
     }
 
